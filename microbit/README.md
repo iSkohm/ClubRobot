@@ -19,3 +19,7 @@ Aujourd'hui, vous allez apprendre à lui parler avec du code, et qui sait,
 peut-être inventerez-vous le prochain gadget qui épatera le monde entier.
 
 Prêts à plonger dans cette aventure lumineuse et pleine de surprises ? Allons-y !
+
+* [Site BBC Micro:bit](https://microbit.org/fr/get-started/features/overview/)
+* [Editeur Python pour Micro:bit](https://python.microbit.org/v/3)
+* [Exemples de Projets Python sur Micro:bit](https://microbit.org/fr/projects/make-it-code-it/?filters=python)
