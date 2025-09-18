@@ -9,7 +9,7 @@ Avec son écran scintillant de 25 petites lumières,
 ses boutons magiques et ses capteurs qui détectent les mouvements, la lumière, et même votre imagination, 
 cet engin est prêt à transformer vos idées en réalité.
 
-![plot](./microbitv2.avif)
+![plot](microbitv2.avif)
  
 Vous voulez faire clignoter un cœur, créer un jeu où secouer gagne des points, 
 ou programmer un robot qui danse ? 
