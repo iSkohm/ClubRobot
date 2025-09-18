@@ -6,4 +6,3 @@ while True:
                        '36963:'
                        '03630:'
                        '00300'))
-    display.show

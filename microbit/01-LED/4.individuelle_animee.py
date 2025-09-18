@@ -1,47 +1,30 @@
 from microbit import *
 
 while True:
-    display.show(Image('00000:'
-                       '00000:'
-                       '00900:'
-                       '00000:'
-                       '00000'))
+    display.set_pixel(0, 2, 9)
+    sleep(500)
+    display.set_pixel(0, 1, 9)
+    sleep(500)
+    display.set_pixel(0, 0, 9)
+    sleep(500)
+    display.set_pixel(1, 0, 9)
+    sleep(500)
+    display.set_pixel(2, 0, 9)
+    sleep(500)
+    display.set_pixel(3, 0, 9)
+    sleep(500)
+    display.set_pixel(3, 1, 9)
+    sleep(500)
+    display.set_pixel(3, 2, 9)
+    sleep(500)
+    display.set_pixel(3, 2, 7)
+    sleep(500)
+    display.set_pixel(3, 2, 5)
+    sleep(500)
+    display.set_pixel(3, 2, 3)
+    sleep(500)
+    display.set_pixel(3, 2, 0)
+    sleep(3000)
 
-    sleep(2000)
-    display.show(Image('00000:'
-                       '00000:'
-                       '90000:'
-                       '00000:'
-                       '00000'))
+    display.clear()
 
-    sleep(1000)
-    display.show(Image('90000:'
-                       '00000:'
-                       '00000:'
-                       '00000:'
-                       '00000'))
-    sleep(500)
-    display.clear()
-    sleep(500)
-    display.show(Image('90000:'
-                       '00000:'
-                       '00000:'
-                       '00000:'
-                       '00000'))
-    sleep(500)
-    display.clear()
-    sleep(500)
-    display.show(Image('90000:'
-                       '00000:'
-                       '00000:'
-                       '00000:'
-                       '00000'))
-    sleep(500)
-    display.clear()
-    sleep(500)
-    display.show(Image('90000:'
-                       '00000:'
-                       '00000:'
-                       '00000:'
-                       '00000'))
-    sleep(2000)
