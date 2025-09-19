@@ -21,9 +21,9 @@ def jouer(main_a, main_b):
 
     if main_a == PIERRE:
         if main_b == FEUILLE:
-            return 1
-        elif main_b == CISEAUX:
             return -1
+        elif main_b == CISEAUX:
+            return 1
     elif main_a == FEUILLE:
         if main_b == PIERRE:
             return 1
@@ -60,11 +60,12 @@ def afficher_main(m):
 
 
 def clignoter_pixel(x, y):
+    display.clear()
     for i in range(3):
         display.set_pixel(x, y, 9)
-        sleep(250)
+        sleep(200)
         display.clear()
-        sleep(100)
+        sleep(50)
 
 
 def intro():
@@ -72,15 +73,15 @@ def intro():
     mains = ['p', 'f', 'c']
 
     afficher_main(mains[0])
-    sleep(500)
+    sleep(300)
     clignoter_pixel(0, 2)
 
     afficher_main(mains[1])
-    sleep(500)
+    sleep(300)
     clignoter_pixel(4, 2)
 
     afficher_main(mains[2])
-    sleep(500)
+    sleep(300)
     clignoter_pixel(2, 0)
 
 
@@ -118,6 +119,7 @@ while True:
     main_adversaire = radio.receive()
 
     if main_adversaire:
+        radio.send(main)
         music.play(music.JUMP_DOWN)
 
         clignoter_main(3, main_adversaire)
