@@ -61,7 +61,7 @@ def afficher_main(m):
 
 def clignoter_pixel(x, y):
     display.clear()
-    for i in range(3):
+    for i in range(2):
         display.set_pixel(x, y, 9)
         sleep(200)
         display.clear()
@@ -73,15 +73,15 @@ def intro():
     mains = ['p', 'f', 'c']
 
     afficher_main(mains[0])
-    sleep(300)
+    sleep(200)
     clignoter_pixel(0, 2)
 
     afficher_main(mains[1])
-    sleep(300)
+    sleep(200)
     clignoter_pixel(4, 2)
 
     afficher_main(mains[2])
-    sleep(300)
+    sleep(200)
     clignoter_pixel(2, 0)
 
 
@@ -118,7 +118,7 @@ while True:
 
     main_adversaire = radio.receive()
 
-    if main_adversaire:
+    if main_adversaire and main:
         radio.send(main)
         music.play(music.JUMP_DOWN)
 
