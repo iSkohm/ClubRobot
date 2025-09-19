@@ -13,6 +13,7 @@ CISEAUX = 'c'
 main_adversaire = ''
 main = ''
 score = 0
+total_score = 0
 
 
 def jouer(main_a, main_b):
@@ -38,23 +39,23 @@ def jouer(main_a, main_b):
 
 def afficher_main(m):
     if m == PIERRE:
-        display.show(Image('00000:'
-                           '09780:'
-                           '09780:'
-                           '09990:'
-                           '00000'))
+        display.show(Image('01310:'
+                           '14741:'
+                           '37973:'
+                           '14741:'
+                           '01310'))
     elif m == FEUILLE:
-        display.show(Image('99999:'
-                           '90009:'
-                           '90009:'
-                           '90009:'
-                           '99990'))
+        display.show(Image('09999:'
+                           '09009:'
+                           '09009:'
+                           '09099:'
+                           '09990'))
     elif m == CISEAUX:
         display.show(Image('90009:'
                            '09090:'
                            '00900:'
-                           '99099:'
-                           '99099'))
+                           '09090:'
+                           '09090'))
     else:
         display.show(Image.CONFUSED)
 
@@ -73,15 +74,15 @@ def intro():
     mains = ['p', 'f', 'c']
 
     afficher_main(mains[0])
-    sleep(200)
+    sleep(300)
     clignoter_pixel(0, 2)
 
     afficher_main(mains[1])
-    sleep(200)
+    sleep(300)
     clignoter_pixel(4, 2)
 
     afficher_main(mains[2])
-    sleep(200)
+    sleep(300)
     clignoter_pixel(2, 0)
 
 
@@ -94,7 +95,6 @@ def clignoter_main(c, m):
 
 
 audio.play(Sound.SPRING)
-
 intro()
 
 while True:
@@ -130,6 +130,7 @@ while True:
             display.show(Image.ASLEEP)
             music.play(music.BADDY)
         elif score == 1:
+            total_score += 1
             display.show(Image.HAPPY)
             speech.say('YOU WIN')
             music.play(music.POWER_UP)
@@ -137,6 +138,7 @@ while True:
             display.show(Image.SAD)
             music.play(music.WAWAWAWAA)
 
+        display.show(total_score)
         sleep(2000)
         display.clear()
         score = 0
