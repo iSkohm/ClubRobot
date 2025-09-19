@@ -1,5 +1,7 @@
 from microbit import *
 import radio
+import music
+import speech
 
 radio.config(group=8)
 radio.on()
@@ -57,25 +59,42 @@ def afficher_main(m):
         display.show(Image.CONFUSED)
 
 
-def intro():
-    audio.play(Sound.HAPPY)
-    mains = ['p', 'f', 'c']
-    for m in mains:
-        afficher_main(m)
-        sleep(500)
+def clignoter_pixel(x, y):
+    for i in range(3):
+        display.set_pixel(x, y, 9)
+        sleep(250)
         display.clear()
-    sleep(1000)
+        sleep(100)
+
+
+def intro():
+    speech.say('Hi')
+    mains = ['p', 'f', 'c']
+
+    afficher_main(mains[0])
+    sleep(500)
+    clignoter_pixel(0, 2)
+
+    afficher_main(mains[1])
+    sleep(500)
+    clignoter_pixel(4, 2)
+
+    afficher_main(mains[2])
+    sleep(500)
+    clignoter_pixel(2, 0)
 
 
 def clignoter_main(c, m):
     for i in range(c + 1):
         afficher_main(m)
-        sleep(250)
+        sleep(300)
         display.clear()
-        sleep(250)
+        sleep(100)
 
 
-# intro()
+audio.play(Sound.SPRING)
+
+intro()
 
 while True:
 
@@ -99,25 +118,28 @@ while True:
     main_adversaire = radio.receive()
 
     if main_adversaire:
-        audio.play(Sound.MYSTERIOUS)
+        music.play(music.JUMP_DOWN)
+
         clignoter_main(3, main_adversaire)
 
         score = jouer(main, main_adversaire)
 
         if score == 0:
-            audio.play(Sound.YAWN)
             display.show(Image.ASLEEP)
+            music.play(music.BADDY)
         elif score == 1:
-            audio.play(Sound.HAPPY)
             display.show(Image.HAPPY)
+            speech.say('YOU WIN')
+            music.play(music.POWER_UP)
         elif score == -1:
-            audio.play(Sound.SAD)
             display.show(Image.SAD)
+            music.play(music.WAWAWAWAA)
 
-        sleep(1000)
+        sleep(2000)
         display.clear()
         score = 0
         main = ''
         main_adversaire = ''
+        intro()
 
 
