@@ -11,7 +11,7 @@ def servo_angle(pin, angle):
     pin.write_analog(pwm)
 
 
-def servo_ralenti(pin, angle_debut, angle_fin, pas=1, delais=20):
+def servo_ralenti(pin, angle_debut, angle_fin, pas=1, delai=20):
    
     angle_actuel = angle_debut
     if angle_debut < angle_fin:
@@ -19,13 +19,13 @@ def servo_ralenti(pin, angle_debut, angle_fin, pas=1, delais=20):
         while angle_actuel <= angle_fin:
             servo_angle(pin, angle_actuel)
             angle_actuel += pas
-            sleep(delais)
+            sleep(delai)
     else:
         # sens oppose
         while angle_actuel >= angle_fin:
             servo_angle(pin, angle_actuel)
             angle_actuel -= pas
-            sleep(delais)
+            sleep(delai)
 
 def ouvre(pin):
     servo_ralenti(pin, 0, 180,5)
