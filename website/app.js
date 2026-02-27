@@ -24,31 +24,35 @@ function highlightLine(line) {
 }
 
 function highlightTokens(line) {
-  // Strings (single and double quotes)
-  line = line.replace(/(&#39;&#39;&#39;|""")([\s\S]*?)\1/g, (m) => `<span class="str">${m}</span>`);
-  line = line.replace(/(&#39;[^&#39;]*&#39;|&quot;[^&quot;]*&quot;)/g, (m) => `<span class="str">${m}</span>`);
-  line = line.replace(/('(?:[^'\\]|\\.)*'|"(?:[^"\\]|\\.)*")/g, (m) => `<span class="str">${m}</span>`);
+  // STEP 1: Save strings as placeholders so keywords don't match inside them
+  // (prevents 'class' keyword matching inside class="str" span attributes)
+  const saved = [];
+  line = line.replace(/('(?:[^'\\]|\\.)*'|"(?:[^"\\]|\\.)*")/g, (m) => {
+    const i = saved.length;
+    saved.push(`<span class="str">${m}</span>`);
+    return `\x00${i}\x00`;
+  });
 
-  // Keywords
+  // STEP 2: Keywords (no span tags in line yet — safe)
   const keywords = ['from', 'import', 'while', 'for', 'if', 'elif', 'else', 'def', 'class',
                     'return', 'True', 'False', 'None', 'and', 'or', 'not', 'in', 'is',
                     'pass', 'break', 'continue', 'global', 'self', 'with', 'as', 'try',
                     'except', 'finally', 'raise', 'lambda', 'yield', 'del', 'assert'];
   keywords.forEach(kw => {
     const re = new RegExp(`\\b(${kw})\\b`, 'g');
-    line = line.replace(re, '<span class="kw">$1</span>');
+    line = line.replace(re, `<span class="kw">$1</span>`);
   });
 
-  // Class names (capitalized identifiers after 'class')
-  line = line.replace(/\bclass\s+([A-Z][a-zA-Z0-9_]*)/g, (m, n) =>
-    m.replace(n, `<span class="cls">${n}</span>`)
-  );
+  // STEP 3: Numbers
+  line = line.replace(/\b(\d+\.?\d*)\b/g, `<span class="num">$1</span>`);
 
-  // Numbers
-  line = line.replace(/\b(\d+\.?\d*)\b/g, '<span class="num">$1</span>');
+  // STEP 4: Function calls
+  line = line.replace(/\b([a-z_][a-zA-Z0-9_]*)(\s*\()/g, `<span class="fn">$1</span>$2`);
 
-  // Function calls (word followed by open paren)
-  line = line.replace(/\b([a-z_][a-zA-Z0-9_]*)(\s*\()/g, '<span class="fn">$1</span>$2');
+  // STEP 5: Restore saved strings
+  saved.forEach((s, i) => {
+    line = line.split(`\x00${i}\x00`).join(s);
+  });
 
   return line;
 }
