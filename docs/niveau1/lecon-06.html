@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leçon 6 — Listes & Fonctions · iSkohm</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<div class="progress-bar"></div>
+
+<nav>
+  <a href="../index.html" class="nav-logo">
+    <svg class="circuit-svg" viewBox="0 0 28 28" fill="none">
+      <rect x="2" y="2" width="10" height="10" rx="2" stroke="#00b4d8" stroke-width="1.5"/>
+      <rect x="16" y="2" width="10" height="10" rx="2" stroke="#39d353" stroke-width="1.5"/>
+      <rect x="9" y="16" width="10" height="10" rx="2" stroke="#7c3aed" stroke-width="1.5"/>
+      <line x1="12" y1="7" x2="16" y2="7" stroke="#00b4d8" stroke-width="1.5"/>
+      <line x1="7" y1="12" x2="7" y2="19" stroke="#00b4d8" stroke-width="1.5"/>
+      <line x1="7" y1="19" x2="9" y2="19" stroke="#00b4d8" stroke-width="1.5"/>
+      <line x1="21" y1="12" x2="21" y2="19" stroke="#39d353" stroke-width="1.5"/>
+      <line x1="19" y1="19" x2="21" y2="19" stroke="#39d353" stroke-width="1.5"/>
+      <circle cx="7" cy="7" r="1.5" fill="#00b4d8"/>
+      <circle cx="21" cy="7" r="1.5" fill="#39d353"/>
+      <circle cx="14" cy="21" r="1.5" fill="#7c3aed"/>
+    </svg>
+    <span class="logo-text">iSkohm</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="../index.html">Accueil</a></li>
+    <li><a href="../niveau1.html" class="active">Niveau 1</a></li>
+    <li><a href="../niveau2.html">Niveau 2</a></li>
+    <li><a href="../competition.html">🏆 Compétition</a></li>
+  </ul>
+</nav>
+
+<div class="lesson-layout">
+
+  <div class="breadcrumb">
+    <a href="../index.html">Accueil</a>
+    <span class="sep">›</span>
+    <a href="../niveau1.html">Niveau 1</a>
+    <span class="sep">›</span>
+    <span class="current">Leçon 6 — Listes & Fonctions</span>
+  </div>
+
+  <div class="lesson-header">
+    <div class="lesson-emoji">🗂️</div>
+    <h1 class="lesson-title">
+      Listes & Fonctions
+      <span class="badge badge-intermediaire">Intermédiaire</span>
+    </h1>
+    <div class="niveau-badge">🔵 Niveau 1 · BBC micro:bit · Leçon 6/8</div>
+  </div>
+
+  <div class="lesson-section">
+    <h2>🎯 Objectifs</h2>
+    <ul>
+      <li>Créer et manipuler des listes en Python</li>
+      <li>Accéder aux éléments d'une liste par leur index</li>
+      <li>Ajouter des éléments à une liste avec <code>append()</code></li>
+      <li>Définir ses propres fonctions avec <code>def</code></li>
+      <li>Comprendre pourquoi les fonctions rendent le code plus clair et réutilisable</li>
+    </ul>
+  </div>
+
+  <div class="lesson-section">
+    <h2>🛠️ Matériel nécessaire</h2>
+    <div class="material-grid">
+      <span class="material-tag">🔲 BBC micro:bit v2</span>
+      <span class="material-tag">🔌 Câble USB</span>
+    </div>
+  </div>
+
+  <div class="lesson-section">
+    <h2>📖 Cours</h2>
+
+    <h3>Les listes</h3>
+    <p>Une liste, c'est une collection ordonnée d'éléments. Imagine une liste de courses : tu as plusieurs articles rangés dans un ordre précis. En Python, on utilise des crochets <code>[ ]</code> :</p>
+
+    <div class="code-block">
+      <div class="code-block-header">
+        <div class="code-block-lang"><div class="lang-dot"></div>1.Listes.py</div>
+        <button class="copy-btn">Copier</button>
+      </div>
+      <div class="code-content"><code class="python">from microbit import *
+
+maliste = ['chat', 'chien', 'coq' , 'robot']
+i = 0
+while True:
+    if button_a.is_pressed():
+        i = i + 1
+        if i >= len(maliste):
+            i = 0
+        display.show(i)
+        sleep(500)
+        display.scroll(maliste[i])
+
+    if button_b.is_pressed():
+        maliste.append('dragon')</code></div>
+    </div>
+
+    <p>Explications :</p>
+    <ul>
+      <li><strong><code>maliste = ['chat', 'chien', 'coq', 'robot']</code></strong> — crée une liste de 4 mots</li>
+      <li><strong><code>maliste[0]</code></strong> → 'chat', <strong><code>maliste[1]</code></strong> → 'chien' (les index commencent à 0 !)</li>
+      <li><strong><code>len(maliste)</code></strong> — retourne le nombre d'éléments (ici 4)</li>
+      <li><strong><code>maliste.append('dragon')</code></strong> — ajoute 'dragon' à la fin de la liste</li>
+      <li>Si <code>i</code> dépasse la longueur, on le remet à 0 pour faire un cycle</li>
+    </ul>
+
+    <div class="info-box info">
+      <span class="icon">📝</span>
+      <div>Les index commencent à <strong>0</strong> ! Une liste de 4 éléments a les index 0, 1, 2, 3. C'est comme les coordonnées des LEDs de la micro:bit !</div>
+    </div>
+
+    <h3>Les fonctions</h3>
+    <p>Une fonction, c'est un morceau de code qui a un nom et qu'on peut appeler quand on veut. Ça évite de répéter le même code plusieurs fois !</p>
+
+    <div class="code-block">
+      <div class="code-block-header">
+        <div class="code-block-lang"><div class="lang-dot"></div>2.Fonctions.py</div>
+        <button class="copy-btn">Copier</button>
+      </div>
+      <div class="code-content"><code class="python">from microbit import *
+
+def afficher_image():
+    display.show(Image.DUCK)
+    sleep(1000)
+    display.clear()
+
+
+def jouer_son():
+    audio.play(Sound.MYSTERIOUS)
+
+
+
+while True:
+    if button_a.is_pressed():
+        afficher_image()
+    if button_b.is_pressed():
+        jouer_son()</code></div>
+    </div>
+
+    <p>On <strong>définit</strong> les fonctions avec <code>def nom_fonction():</code> avant la boucle principale. Ensuite on les <strong>appelle</strong> juste en écrivant leur nom suivi de parenthèses.</p>
+
+    <div class="info-box tip">
+      <span class="icon">💡</span>
+      <div>Les fonctions rendent le code plus lisible ! Au lieu de voir 10 lignes de code, tu vois juste <code>afficher_image()</code> et tu comprends tout de suite ce qui se passe.</div>
+    </div>
+
+    <h3>Fonctions avec paramètres</h3>
+    <div class="code-block">
+      <div class="code-block-header">
+        <div class="code-block-lang"><div class="lang-dot"></div>Fonction avec paramètre</div>
+        <button class="copy-btn">Copier</button>
+      </div>
+      <div class="code-content"><code class="python">from microbit import *
+
+# Fonction qui prend un paramètre
+def clignoter(n_fois):
+    for i in range(n_fois):
+        display.show(Image.HEART)
+        sleep(300)
+        display.clear()
+        sleep(200)
+
+while True:
+    if button_a.is_pressed():
+        clignoter(3)   # clignote 3 fois
+    if button_b.is_pressed():
+        clignoter(10)  # clignote 10 fois</code></div>
+    </div>
+  </div>
+
+  <div class="lesson-section">
+    <h2>✏️ Exercices</h2>
+
+    <div class="exercice-card">
+      <div class="ex-num">Exercice 1</div>
+      <h3>Jukebox d'images</h3>
+      <p>Crée une liste de 6 images (utilise les images prédéfinies de micro:bit). Parcours-les avec le bouton A (suivant) et B (précédent). Affiche l'index actuel avec <code>display.show(i)</code> avant l'image.</p>
+    </div>
+
+    <div class="exercice-card">
+      <div class="ex-num">Exercice 2</div>
+      <h3>Mes propres fonctions</h3>
+      <p>Crée 3 fonctions : <code>feu_rouge()</code>, <code>feu_vert()</code> et <code>feu_orange()</code>. Chaque fonction affiche une image correspondante et joue un son différent. Appelle-les en boucle avec des délais.</p>
+    </div>
+
+    <div class="exercice-card">
+      <div class="ex-num">Exercice 3 — Défi</div>
+      <h3>Machine à messages</h3>
+      <p>Crée une liste de messages. Bouton A → affiche le message suivant en défilant. Bouton A + B → ajoute un nouveau message dynamiquement à la liste (utilise un compteur pour créer le message : "Message 1", "Message 2"...). Bonus : affiche la longueur de la liste !</p>
+    </div>
+  </div>
+
+  <div class="lesson-section">
+    <div class="retenir-box">
+      <h2>🧠 À retenir</h2>
+      <ul class="retenir-list">
+        <li><strong>maliste = ['a', 'b', 'c']</strong> — crée une liste</li>
+        <li><strong>maliste[0]</strong> — accède au premier élément (index 0 !)</li>
+        <li><strong>len(maliste)</strong> — nombre d'éléments dans la liste</li>
+        <li><strong>maliste.append(x)</strong> — ajoute x à la fin</li>
+        <li><strong>def ma_fonction():</strong> — définit une fonction</li>
+        <li><strong>ma_fonction()</strong> — appelle une fonction</li>
+        <li>Une fonction peut avoir des <strong>paramètres</strong> entre les parenthèses</li>
+        <li>Les fonctions = code réutilisable + code lisible</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="lesson-nav">
+    <a href="lecon-05.html">← Leçon 5 — Boucles</a>
+    <a href="lecon-07.html">Leçon 7 — Servomoteur →</a>
+  </div>
+
+</div>
+
+<footer>
+  <p><strong class="logo-text">iSkohm</strong> Robot Club · <a href="https://iskohm.com">iskohm.com</a></p>
+</footer>
+
+<script src="../app.js"></script>
+</body>
+</html>

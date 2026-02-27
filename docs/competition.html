@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🏆 iSkohm Robot Battle · Compétition</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .fire-text {
+      background: linear-gradient(135deg, #fbbf24, #f97316, #f85149);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .option-vote {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.5rem;
+    }
+
+    .vote-bar {
+      flex: 1;
+      height: 4px;
+      background: var(--bg3);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .vote-fill {
+      height: 100%;
+      background: var(--orange);
+      border-radius: 2px;
+      transition: width 0.5s;
+    }
+
+    .team-slot {
+      background: var(--bg2);
+      border: 2px dashed var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .team-slot .emoji { font-size: 3rem; margin-bottom: 0.5rem; }
+    .team-slot h3 { color: var(--white); font-size: 1.1rem; }
+
+    .event-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+    }
+
+    .event-date {
+      min-width: 80px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--orange);
+      text-align: center;
+    }
+
+    .event-name { font-weight: 600; color: var(--white); }
+    .event-desc { font-size: 0.85rem; color: var(--muted); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <svg class="circuit-svg" viewBox="0 0 28 28" fill="none">
+      <rect x="2" y="2" width="10" height="10" rx="2" stroke="#00b4d8" stroke-width="1.5"/>
+      <rect x="16" y="2" width="10" height="10" rx="2" stroke="#39d353" stroke-width="1.5"/>
+      <rect x="9" y="16" width="10" height="10" rx="2" stroke="#7c3aed" stroke-width="1.5"/>
+      <line x1="12" y1="7" x2="16" y2="7" stroke="#00b4d8" stroke-width="1.5"/>
+      <line x1="7" y1="12" x2="7" y2="19" stroke="#00b4d8" stroke-width="1.5"/>
+      <line x1="7" y1="19" x2="9" y2="19" stroke="#00b4d8" stroke-width="1.5"/>
+      <line x1="21" y1="12" x2="21" y2="19" stroke="#39d353" stroke-width="1.5"/>
+      <line x1="19" y1="19" x2="21" y2="19" stroke="#39d353" stroke-width="1.5"/>
+      <circle cx="7" cy="7" r="1.5" fill="#00b4d8"/>
+      <circle cx="21" cy="7" r="1.5" fill="#39d353"/>
+      <circle cx="14" cy="21" r="1.5" fill="#7c3aed"/>
+    </svg>
+    <span class="logo-text">iSkohm</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="niveau1.html">Niveau 1</a></li>
+    <li><a href="niveau2.html">Niveau 2</a></li>
+    <li><a href="competition.html" class="active">🏆 Compétition</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="comp-hero">
+  <canvas id="circuit-canvas" style="opacity:.2"></canvas>
+  <div style="position:relative;z-index:1">
+    <div style="font-size:1rem;font-weight:700;color:var(--orange);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.5rem">
+      ⚡ iSkohm · Sidi Kaouki · 2026
+    </div>
+    <h1>🏆 iSkohm Robot Battle</h1>
+    <p>La première compétition de robots du Club iSkohm</p>
+    <p style="font-size:1rem;margin-top:.5rem;color:var(--muted)">2 équipes · 2 robots · 1 arène · 0 pitié</p>
+  </div>
+</div>
+
+<!-- COUNTDOWN -->
+<section class="section" style="text-align:center;padding-top:1rem">
+  <p style="color:var(--muted);font-size:0.9rem;text-transform:uppercase;letter-spacing:.05em;margin-bottom:1rem">⏱️ Compte à rebours</p>
+  <div class="countdown-widget">
+    <div class="countdown-item">
+      <div class="countdown-num" id="cd-jours">--</div>
+      <div class="countdown-label">Jours</div>
+    </div>
+    <div class="countdown-item">
+      <div class="countdown-num" id="cd-heures">--</div>
+      <div class="countdown-label">Heures</div>
+    </div>
+    <div class="countdown-item">
+      <div class="countdown-num" id="cd-minutes">--</div>
+      <div class="countdown-label">Minutes</div>
+    </div>
+    <div class="countdown-item">
+      <div class="countdown-num" id="cd-secondes">--</div>
+      <div class="countdown-label">Secondes</div>
+    </div>
+  </div>
+  <p style="color:var(--muted);font-size:0.8rem;margin-top:0.5rem">Date provisoire : 15 juin 2026 — à confirmer !</p>
+</section>
+
+<!-- CONCEPT -->
+<section class="section" style="border-top:1px solid var(--border)">
+  <h2 class="section-title">⚔️ Le Concept</h2>
+  <p class="section-sub">Simple, brutal, fun.</p>
+
+  <div class="card-grid" style="grid-template-columns:repeat(auto-fill,minmax(200px,1fr))">
+    <div class="card" style="text-align:center;border-color:rgba(249,115,22,.3)">
+      <div style="font-size:2.5rem">👥</div>
+      <div class="card-title">2 équipes</div>
+      <div class="card-desc">2 élèves par équipe. Vous concevez, construisez et programmez votre robot ensemble.</div>
+    </div>
+    <div class="card" style="text-align:center;border-color:rgba(249,115,22,.3)">
+      <div style="font-size:2.5rem">🤖</div>
+      <div class="card-title">2 robots</div>
+      <div class="card-desc">Chaque équipe a son propre Otto. Même base matérielle, mais votre code = votre stratégie !</div>
+    </div>
+    <div class="card" style="text-align:center;border-color:rgba(249,115,22,.3)">
+      <div style="font-size:2.5rem">🏟️</div>
+      <div class="card-title">1 arène</div>
+      <div class="card-desc">Une arène préparée pour le match. 3 minutes par round. Plusieurs manches.</div>
+    </div>
+    <div class="card" style="text-align:center;border-color:rgba(249,115,22,.3)">
+      <div style="font-size:2.5rem">🏆</div>
+      <div class="card-title">1 gagnant</div>
+      <div class="card-desc">Le meilleur code + la meilleure stratégie + le meilleur teamwork = la victoire !</div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMAT OPTIONS -->
+<section class="section" style="border-top:1px solid var(--border)">
+  <h2 class="section-title">🗳️ Format — À vous de voter !</h2>
+  <p class="section-sub">Le format de la compétition n'est pas encore décidé. Voilà les idées proposées par les élèves :</p>
+
+  <div class="format-grid">
+
+    <div class="format-card">
+      <div class="emoji">🎯</div>
+      <div class="label">Option A — Suggestion élève !</div>
+      <h3>Tir de précision</h3>
+      <p>Un robot équipé d'un canon solénoïde doit toucher des cibles. Celui qui en touche le plus gagne !</p>
+      <div class="option-vote">
+        <span>❤️ 5</span>
+        <div class="vote-bar"><div class="vote-fill" style="width:62%"></div></div>
+      </div>
+    </div>
+
+    <div class="format-card">
+      <div class="emoji">🛤️</div>
+      <div class="label">Option B — Suggestion élève !</div>
+      <h3>Course avec obstacles</h3>
+      <p>Un parcours chronométré avec des obstacles à éviter. Le plus rapide sans toucher gagne !</p>
+      <div class="option-vote">
+        <span>❤️ 4</span>
+        <div class="vote-bar"><div class="vote-fill" style="width:50%"></div></div>
+      </div>
+    </div>
+
+    <div class="format-card">
+      <div class="emoji">🏟️</div>
+      <div class="label">Option C</div>
+      <h3>Arène libre</h3>
+      <p>Les deux robots s'affrontent dans une arène. Dernier robot debout (dans l'arène) = gagnant !</p>
+      <div class="option-vote">
+        <span>❤️ 7</span>
+        <div class="vote-bar"><div class="vote-fill" style="width:87%"></div></div>
+      </div>
+    </div>
+
+    <div class="format-card">
+      <div class="emoji">🎮</div>
+      <div class="label">Option D</div>
+      <h3>Capture de drapeau</h3>
+      <p>Mode télécommandé. Chaque équipe défend sa zone et doit capturer la zone adverse. Le plus stratégique gagne !</p>
+      <div class="option-vote">
+        <span>❤️ 3</span>
+        <div class="vote-bar"><div class="vote-fill" style="width:37%"></div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="info-box tip">
+    <span class="icon">🗣️</span>
+    <div>Le vote final se fera en classe ! Le format choisi déterminera comment vous préparez vos robots. Commencez déjà à réfléchir à votre stratégie pour <strong>chaque option</strong> !</div>
+  </div>
+</section>
+
+<!-- RÈGLES -->
+<section class="section" style="border-top:1px solid var(--border)">
+  <h2 class="section-title">📋 Règles générales</h2>
+  <p class="section-sub">Ces règles s'appliquent quel que soit le format choisi :</p>
+
+  <ul class="rules-list">
+    <li>
+      <span class="rule-icon">🎮</span>
+      <div><strong style="color:var(--white)">Robots télécommandés</strong> — contrôle via manette Bluetooth pendant les matchs</div>
+    </li>
+    <li>
+      <span class="rule-icon">📏</span>
+      <div><strong style="color:var(--white)">Taille maximum : 30×30 cm</strong> — le robot doit rentrer dans un carré de 30cm de côté</div>
+    </li>
+    <li>
+      <span class="rule-icon">🖨️</span>
+      <div><strong style="color:var(--white)">Matériaux</strong> — impression 3D autorisée, carton, plastique... Soyez créatifs !</div>
+    </li>
+    <li>
+      <span class="rule-icon">🚫</span>
+      <div><strong style="color:var(--white)">Pas de projectiles dangereux</strong> — les canons solénoïdes avec billes molles sont OK, les lance-pierres non</div>
+    </li>
+    <li>
+      <span class="rule-icon">⏱️</span>
+      <div><strong style="color:var(--white)">Durée : 3 minutes par match</strong> — si pas de résultat, décision aux points (vitesse, agilité, style)</div>
+    </li>
+    <li>
+      <span class="rule-icon">👥</span>
+      <div><strong style="color:var(--white)">Fair-play obligatoire</strong> — on s'amuse, on se respecte, on partage les connaissances après le match</div>
+    </li>
+    <li>
+      <span class="rule-icon">🔋</span>
+      <div><strong style="color:var(--white)">Autonomie batterie</strong> — chaque robot doit fonctionner de façon autonome (pas de câble USB pendant le match)</div>
+    </li>
+    <li>
+      <span class="rule-icon">💻</span>
+      <div><strong style="color:var(--white)">Code propre requis</strong> — le code du robot sera présenté à l'enseignant avant le match. Pas de code copié sans compréhension !</div>
+    </li>
+  </ul>
+</section>
+
+<!-- ÉQUIPES -->
+<section class="section" style="border-top:1px solid var(--border)">
+  <h2 class="section-title">👥 Les Équipes</h2>
+  <p class="section-sub">Les équipes seront annoncées bientôt...</p>
+
+  <div class="card-grid" style="grid-template-columns:repeat(auto-fill,minmax(220px,1fr))">
+    <div class="team-slot">
+      <div class="emoji">🔴</div>
+      <h3>Équipe Rouge</h3>
+      <p style="color:var(--muted);font-size:.85rem">À annoncer</p>
+    </div>
+    <div class="team-slot">
+      <div class="emoji">🔵</div>
+      <h3>Équipe Bleue</h3>
+      <p style="color:var(--muted);font-size:.85rem">À annoncer</p>
+    </div>
+  </div>
+
+  <div class="info-box info" style="margin-top:1.5rem">
+    <span class="icon">📢</span>
+    <div>Les équipes sont choisies de façon à équilibrer les compétences. Chaque équipe aura un "pilote" (télécommande) et un "ingénieur" (optimisation du code). Les rôles peuvent s'échanger entre les manches !</div>
+  </div>
+</section>
+
+<!-- CALENDRIER -->
+<section class="section" style="border-top:1px solid var(--border)">
+  <h2 class="section-title">📅 Calendrier</h2>
+  <p class="section-sub">Les grandes étapes vers la Robot Battle :</p>
+
+  <div>
+    <div class="event-row">
+      <div class="event-date">Déjà fait</div>
+      <div>
+        <div class="event-name">✅ Niveau 1 — micro:bit</div>
+        <div class="event-desc">Bases de la programmation, capteurs, servomoteurs, radio</div>
+      </div>
+    </div>
+    <div class="event-row">
+      <div class="event-date">En cours</div>
+      <div>
+        <div class="event-name">🔄 Niveau 2 — Pico + Robot</div>
+        <div class="event-desc">Servomoteurs PWM, mouvements, télécommande Bluetooth</div>
+      </div>
+    </div>
+    <div class="event-row">
+      <div class="event-date">À venir</div>
+      <div>
+        <div class="event-name">🔧 Assemblage et personnalisation</div>
+        <div class="event-desc">Chaque équipe assemble et personnalise son robot</div>
+      </div>
+    </div>
+    <div class="event-row">
+      <div class="event-date">À venir</div>
+      <div>
+        <div class="event-name">🏋️ Entraînements et qualifications</div>
+        <div class="event-desc">Tests de parcours, calibration, debug de stratégie</div>
+      </div>
+    </div>
+    <div class="event-row" style="border-color:rgba(249,115,22,.4)">
+      <div class="event-date" style="color:var(--orange);font-size:1rem">🏆</div>
+      <div>
+        <div class="event-name" style="color:var(--orange)">iSkohm Robot Battle — La Finale !</div>
+        <div class="event-desc">Juin 2026 — date exacte à confirmer. Familles invitées !</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONSEILS STRATÉGIE -->
+<section class="section" style="border-top:1px solid var(--border)">
+  <h2 class="section-title">🧠 Conseils de stratégie</h2>
+  <p class="section-sub">Les robots qui gagnent ne sont pas forcément les plus rapides — ils sont les plus malins !</p>
+
+  <div style="display:grid;gap:.75rem">
+    <div class="info-box tip">
+      <span class="icon">⚡</span>
+      <div><strong>Vitesse vs Précision</strong> — Un robot rapide mais imprécis perd souvent contre un robot lent mais précis. Calibre bien tes virages !</div>
+    </div>
+    <div class="info-box info">
+      <span class="icon">🎮</span>
+      <div><strong>Pratique la télécommande</strong> — Le pilote doit connaître ses contrôles par cœur. 100 heures de jeu vidéo t'ont préparé pour ça !</div>
+    </div>
+    <div class="info-box warning">
+      <span class="icon">🔋</span>
+      <div><strong>Gère ton énergie</strong> — Les servomoteurs consomment beaucoup. Vérifie ta batterie avant chaque match. Une panne en plein match = défaite !</div>
+    </div>
+    <div class="info-box tip">
+      <span class="icon">👀</span>
+      <div><strong>Observe l'adversaire</strong> — Pendant les entraînements, observe le robot adverse. Ses points faibles sont ta stratégie !</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>
+    <strong class="logo-text">iSkohm</strong> Robot Club · Sidi Kaouki, Maroc ·
+    <a href="https://iskohm.com">iskohm.com</a>
+  </p>
+  <p style="margin-top:.5rem;color:var(--muted)">Que le meilleur robot gagne ! 🏆🤖</p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

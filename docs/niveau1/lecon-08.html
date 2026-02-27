@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leçon 8 — Radio · iSkohm</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<div class="progress-bar"></div>
+
+<nav>
+  <a href="../index.html" class="nav-logo">
+    <svg class="circuit-svg" viewBox="0 0 28 28" fill="none">
+      <rect x="2" y="2" width="10" height="10" rx="2" stroke="#00b4d8" stroke-width="1.5"/>
+      <rect x="16" y="2" width="10" height="10" rx="2" stroke="#39d353" stroke-width="1.5"/>
+      <rect x="9" y="16" width="10" height="10" rx="2" stroke="#7c3aed" stroke-width="1.5"/>
+      <line x1="12" y1="7" x2="16" y2="7" stroke="#00b4d8" stroke-width="1.5"/>
+      <line x1="7" y1="12" x2="7" y2="19" stroke="#00b4d8" stroke-width="1.5"/>
+      <line x1="7" y1="19" x2="9" y2="19" stroke="#00b4d8" stroke-width="1.5"/>
+      <line x1="21" y1="12" x2="21" y2="19" stroke="#39d353" stroke-width="1.5"/>
+      <line x1="19" y1="19" x2="21" y2="19" stroke="#39d353" stroke-width="1.5"/>
+      <circle cx="7" cy="7" r="1.5" fill="#00b4d8"/>
+      <circle cx="21" cy="7" r="1.5" fill="#39d353"/>
+      <circle cx="14" cy="21" r="1.5" fill="#7c3aed"/>
+    </svg>
+    <span class="logo-text">iSkohm</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="../index.html">Accueil</a></li>
+    <li><a href="../niveau1.html" class="active">Niveau 1</a></li>
+    <li><a href="../niveau2.html">Niveau 2</a></li>
+    <li><a href="../competition.html">🏆 Compétition</a></li>
+  </ul>
+</nav>
+
+<div class="lesson-layout">
+
+  <div class="breadcrumb">
+    <a href="../index.html">Accueil</a>
+    <span class="sep">›</span>
+    <a href="../niveau1.html">Niveau 1</a>
+    <span class="sep">›</span>
+    <span class="current">Leçon 8 — Radio</span>
+  </div>
+
+  <div class="lesson-header">
+    <div class="lesson-emoji">📡</div>
+    <h1 class="lesson-title">
+      Radio — Communication sans fil
+      <span class="badge badge-avance">Avancé</span>
+    </h1>
+    <div class="niveau-badge">🔵 Niveau 1 · BBC micro:bit · Leçon 8/8</div>
+  </div>
+
+  <div class="lesson-section">
+    <h2>🎯 Objectifs</h2>
+    <ul>
+      <li>Utiliser le module <code>radio</code> pour faire communiquer deux micro:bits</li>
+      <li>Envoyer et recevoir des messages texte sans fil</li>
+      <li>Contrôler un servomoteur à distance via radio</li>
+      <li>Créer une communication bidirectionnelle</li>
+      <li><strong>Projet final :</strong> Pierre-Feuille-Ciseaux multijoueur (MartoCizo)</li>
+    </ul>
+  </div>
+
+  <div class="lesson-section">
+    <h2>🛠️ Matériel nécessaire</h2>
+    <div class="material-grid">
+      <span class="material-tag">🔲 2× BBC micro:bit v2</span>
+      <span class="material-tag">🔌 2× Câble USB</span>
+      <span class="material-tag">💻 2× ordinateurs ou un seul avec 2 éditeurs</span>
+    </div>
+    <div class="info-box info" style="margin-top:1rem">
+      <span class="icon">📡</span>
+      <div>La radio de la micro:bit fonctionne en <strong>2.4 GHz</strong> (comme le WiFi). Elle a une portée d'environ 20 mètres. Le <strong>groupe</strong> (group) est comme une fréquence : deux micro:bits doivent être sur le même groupe pour se parler !</div>
+    </div>
+  </div>
+
+  <div class="lesson-section">
+    <h2>📖 Cours</h2>
+
+    <h3>Exemple 1 — Récepteur</h3>
+    <p>Cette micro:bit reçoit des messages et les affiche :</p>
+
+    <div class="code-block">
+      <div class="code-block-header">
+        <div class="code-block-lang"><div class="lang-dot"></div>1.Receveur.py</div>
+        <button class="copy-btn">Copier</button>
+      </div>
+      <div class="code-content"><code class="python">from microbit import *
+import radio
+
+radio.config(group=8)
+radio.on()
+
+
+while True:
+    message = radio.receive()
+
+    if message:
+        display.scroll(message)</code></div>
+    </div>
+
+    <h3>Exemple 2 — Émetteur</h3>
+    <p>Cette micro:bit envoie des messages selon les boutons pressés :</p>
+
+    <div class="code-block">
+      <div class="code-block-header">
+        <div class="code-block-lang"><div class="lang-dot"></div>2.Emetteur.py</div>
+        <button class="copy-btn">Copier</button>
+      </div>
+      <div class="code-content"><code class="python">from microbit import *
+import radio
+
+radio.config(group=8)
+radio.on()
+
+while True:
+
+    if button_a.is_pressed():
+        sleep(200)
+        radio.send('hello')
+
+    if button_b.is_pressed():
+        sleep(200)
+        radio.send('bye')
+
+    if pin_logo.is_touched():
+        sleep(200)
+        radio.send('Quoi?')</code></div>
+    </div>
+
+    <p>Étapes obligatoires pour utiliser la radio :</p>
+    <ul>
+      <li><strong><code>import radio</code></strong> — importe le module radio</li>
+      <li><strong><code>radio.config(group=8)</code></strong> — choisit le groupe (0 à 255). Les deux micro:bits doivent avoir le <em>même</em> groupe !</li>
+      <li><strong><code>radio.on()</code></strong> — active la radio</li>
+      <li><strong><code>radio.send('texte')</code></strong> — envoie un message</li>
+      <li><strong><code>radio.receive()</code></strong> — vérifie si un message est arrivé (retourne <code>None</code> si rien)</li>
+    </ul>
+
+    <h3>Exemple 3 — Servo télécommandé</h3>
+    <p>Une micro:bit contrôle un servo sur l'autre micro:bit via radio :</p>
+
+    <div class="code-block">
+      <div class="code-block-header">
+        <div class="code-block-lang"><div class="lang-dot"></div>3.Servo_radio.py — micro:bit avec servo</div>
+        <button class="copy-btn">Copier</button>
+      </div>
+      <div class="code-content"><code class="python">## dans le fichier main.py de la microbit telecommandée / connectée au servomoteur
+
+from microbit import *
+import radio
+from Servo import Servo
+
+
+radio.config(group=8)  #choisir un chiffre en commun avec la telecommande
+radio.on()
+
+pince = Servo(pin0)
+
+while True:
+    message = radio.receive()
+
+    if message == 'ouvre':
+        pince.tourne_ralenti(0)
+        message = ''
+    elif message == 'ferme':
+        pince.tourne_ralenti(180)
+        message = ''
+    elif message == 'moitmoit':
+        pince.tourne_ralenti(90)
+        message = ''</code></div>
+    </div>
+
+    <div class="code-block">
+      <div class="code-block-header">
+        <div class="code-block-lang"><div class="lang-dot"></div>3.Servo_radio.py — micro:bit télécommande</div>
+        <button class="copy-btn">Copier</button>
+      </div>
+      <div class="code-content"><code class="python">## dans le fichier main.py de la microbit qui servira de telecommande
+
+from microbit import *
+import radio
+
+radio.config(group=8)
+radio.on()
+
+while True:
+
+    if button_a.is_pressed():
+        sleep(200)
+        radio.send('ouvre')
+
+    if button_b.is_pressed():
+        sleep(200)
+        radio.send('ferme')
+
+    if pin_logo.is_touched():
+        sleep(200)
+        radio.send('moitmoit')</code></div>
+    </div>
+
+    <h3>Exemple 4 — Communication bidirectionnelle</h3>
+    <p>Les deux micro:bits peuvent envoyer ET recevoir en même temps :</p>
+
+    <div class="code-block">
+      <div class="code-block-header">
+        <div class="code-block-lang"><div class="lang-dot"></div>4.Bidirectionnel.py</div>
+        <button class="copy-btn">Copier</button>
+      </div>
+      <div class="code-content"><code class="python">from microbit import *
+import radio
+
+radio.config(group=8)
+radio.on()
+
+message = ''
+
+while True:
+    message = radio.receive()
+
+    if message:
+        display.scroll(message)
+        message = ''
+
+    if button_a.is_pressed():
+        sleep(200)
+        radio.send('hello')
+
+    if button_b.is_pressed():
+        sleep(200)
+        radio.send('bye')
+
+    if pin_logo.is_touched():
+        sleep(200)
+        radio.send('Quoi?')</code></div>
+    </div>
+  </div>
+
+  <!-- PROJET FINAL -->
+  <div class="lesson-section">
+    <h2>🎮 Projet Final — MartoCizo (Pierre-Feuille-Ciseaux)</h2>
+    <p>Ce projet utilise tout ce qu'on a appris ! Deux micro:bits jouent au Pierre-Feuille-Ciseaux via la radio. Chaque joueur choisit sa main (Pierre / Feuille / Ciseaux), les cartes échangent les choix et affichent le résultat. Le code utilise la radio, les fonctions, les classes, les conditions et même la synthèse vocale !</p>
+
+    <div class="info-box tip">
+      <span class="icon">🎯</span>
+      <div><strong>Comment jouer :</strong> Bouton A = Pierre 🪨 | Bouton B = Feuille 📄 | Logo tactile = Ciseaux ✂️<br>Les deux joueurs choisissent en même temps, les micro:bits comparent et annoncent le gagnant !</div>
+    </div>
+
+    <div class="code-block">
+      <div class="code-block-header">
+        <div class="code-block-lang"><div class="lang-dot"></div>5.MartoCizo.py — code complet</div>
+        <button class="copy-btn">Copier</button>
+      </div>
+      <div class="code-content"><code class="python">from microbit import *
+import radio
+import music
+import speech
+
+radio.config(group=8)
+radio.on()
+
+PIERRE = 'p'
+FEUILLE = 'f'
+CISEAUX = 'c'
+
+main_adversaire = ''
+main = ''
+score = 0
+total_score = 0
+
+
+def jouer(main_a, main_b):
+    if main_a == main_b:
+        return 0
+
+    if main_a == PIERRE:
+        if main_b == FEUILLE:
+            return -1
+        elif main_b == CISEAUX:
+            return 1
+    elif main_a == FEUILLE:
+        if main_b == PIERRE:
+            return 1
+        elif main_b == CISEAUX:
+            return -1
+    elif main_a == CISEAUX:
+        if main_b == PIERRE:
+            return -1
+        elif main_b == FEUILLE:
+            return 1
+
+
+def afficher_main(m):
+    if m == PIERRE:
+        display.show(Image('01310:'
+                           '14741:'
+                           '37973:'
+                           '14741:'
+                           '01310'))
+    elif m == FEUILLE:
+        display.show(Image('09999:'
+                           '09009:'
+                           '09009:'
+                           '09099:'
+                           '09990'))
+    elif m == CISEAUX:
+        display.show(Image('90009:'
+                           '09090:'
+                           '00900:'
+                           '09090:'
+                           '09090'))
+    else:
+        display.show(Image.CONFUSED)
+
+
+def clignoter_pixel(x, y):
+    display.clear()
+    for i in range(2):
+        display.set_pixel(x, y, 9)
+        sleep(200)
+        display.clear()
+        sleep(50)
+
+
+def intro():
+    speech.say('Hi')
+    mains = ['p', 'f', 'c']
+
+    afficher_main(mains[0])
+    sleep(300)
+    clignoter_pixel(0, 2)
+
+    afficher_main(mains[1])
+    sleep(300)
+    clignoter_pixel(4, 2)
+
+    afficher_main(mains[2])
+    sleep(300)
+    clignoter_pixel(2, 0)
+
+
+def clignoter_main(c, m):
+    for i in range(c + 1):
+        afficher_main(m)
+        sleep(300)
+        display.clear()
+        sleep(100)
+
+
+audio.play(Sound.SPRING)
+intro()
+
+while True:
+
+    while main == '':
+        main_adversaire = radio.receive()
+        if button_a.is_pressed():
+            main = PIERRE
+            radio.send(main)
+            afficher_main(main)
+
+        if button_b.is_pressed():
+            main = FEUILLE
+            radio.send(main)
+            afficher_main(main)
+
+        if pin_logo.is_touched():
+            main = CISEAUX
+            radio.send(main)
+            afficher_main(main)
+
+    main_adversaire = radio.receive()
+
+    if main_adversaire and main:
+        radio.send(main)
+        music.play(music.JUMP_DOWN)
+
+        clignoter_main(3, main_adversaire)
+
+        score = jouer(main, main_adversaire)
+
+        if score == 0:
+            display.show(Image.ASLEEP)
+            music.play(music.BADDY)
+        elif score == 1:
+            total_score += 1
+            display.show(Image.HAPPY)
+            speech.say('YOU WIN')
+            music.play(music.POWER_UP)
+        elif score == -1:
+            display.show(Image.SAD)
+            music.play(music.WAWAWAWAA)
+
+        display.show(total_score)
+        sleep(2000)
+        display.clear()
+        score = 0
+        main = ''
+        main_adversaire = ''
+        intro()</code></div>
+    </div>
+
+    <h3>Analyse du code MartoCizo</h3>
+    <p>Ce programme utilise des concepts avancés :</p>
+    <ul>
+      <li><strong>Constantes</strong> : <code>PIERRE = 'p'</code> — des variables dont on ne change pas la valeur</li>
+      <li><strong>Fonctions avec retour</strong> : <code>jouer()</code> retourne -1, 0 ou 1 selon le résultat</li>
+      <li><strong>Boucle imbriquée</strong> : <code>while main == '':</code> attend que le joueur choisisse</li>
+      <li><strong>module music</strong> : <code>music.play(music.POWER_UP)</code> joue des mélodies</li>
+      <li><strong>module speech</strong> : <code>speech.say('YOU WIN')</code> synthèse vocale !</li>
+    </ul>
+  </div>
+
+  <div class="lesson-section">
+    <h2>✏️ Exercices</h2>
+
+    <div class="exercice-card">
+      <div class="ex-num">Exercice 1</div>
+      <h3>Chat radio</h3>
+      <p>Utilise l'exemple bidirectionnel pour créer un mini-chat. A envoie "Salut !", B envoie "Ça va ?", logo envoie "Top !". Programme les deux micro:bits de la même façon.</p>
+    </div>
+
+    <div class="exercice-card">
+      <div class="ex-num">Exercice 2</div>
+      <h3>Servo télécommandé avancé</h3>
+      <p>Ajoute d'autres commandes au servo radio : "lent" (tourne très lentement à 90°), "rapide" (tourne directement à 90°), "sweep" (va de 0° à 180° et revient). Modifie la télécommande pour avoir 5 boutons/combinaisons.</p>
+    </div>
+
+    <div class="exercice-card">
+      <div class="ex-num">Exercice 3 — Défi</div>
+      <h3>Améliore MartoCizo</h3>
+      <p>Ajoute ces fonctionnalités à MartoCizo : 1) Affiche le score total des deux joueurs en début de partie. 2) Ajoute un timer de 10 secondes — si personne ne choisit, la partie est annulée. 3) Premier à 3 points gagne la partie !</p>
+    </div>
+  </div>
+
+  <div class="lesson-section">
+    <div class="retenir-box">
+      <h2>🧠 À retenir</h2>
+      <ul class="retenir-list">
+        <li><strong>import radio</strong> — importe le module radio</li>
+        <li><strong>radio.config(group=N)</strong> — choisit le groupe (0-255), même groupe sur les deux cartes !</li>
+        <li><strong>radio.on()</strong> — active la radio (obligatoire)</li>
+        <li><strong>radio.send('message')</strong> — envoie un message texte</li>
+        <li><strong>radio.receive()</strong> — retourne le message reçu ou None si rien</li>
+        <li>Les deux cartes peuvent envoyer ET recevoir en même temps</li>
+        <li>La portée est d'environ 20 mètres en intérieur</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="margin-top:2rem">
+    <div class="info-box tip">
+      <span class="icon">🎉</span>
+      <div><strong>Félicitations !</strong> Tu as terminé le Niveau 1 ! Tu sais maintenant programmer des LEDs, utiliser des boutons, détecter des mouvements, créer des conditions et boucles, organiser ton code avec des fonctions, contrôler des moteurs et faire communiquer deux cartes sans fil. Tu es prêt pour le Niveau 2 — le vrai robot !</div>
+    </div>
+    <div style="margin-top:1rem">
+      <a href="../niveau2.html" class="btn btn-green">Passer au Niveau 2 — Robot Pico 🤖 →</a>
+    </div>
+  </div>
+
+  <div class="lesson-nav">
+    <a href="lecon-07.html">← Leçon 7 — Servomoteur</a>
+    <a href="../niveau2.html">Niveau 2 → 🤖</a>
+  </div>
+
+</div>
+
+<footer>
+  <p><strong class="logo-text">iSkohm</strong> Robot Club · <a href="https://iskohm.com">iskohm.com</a></p>
+</footer>
+
+<script src="../app.js"></script>
+</body>
+</html>
