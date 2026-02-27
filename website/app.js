@@ -1,60 +1,90 @@
 /* ===== iSkohm Robot Club — app.js ===== */
 
-// ===== PYTHON SYNTAX HIGHLIGHTER =====
+// ===== PYTHON SYNTAX HIGHLIGHTER (token-based, no regex-on-HTML) =====
+const PY_KEYWORDS = new Set(['False','None','True','and','as','assert','break','class',
+  'continue','def','del','elif','else','except','finally','for','from','global','if',
+  'import','in','is','lambda','not','or','pass','raise','return','try','while','with','yield']);
+
+function esc(s) {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
 function highlightPython(code) {
-  // Escape HTML first
-  code = code
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
+  let out = '';
+  let i = 0;
+  const n = code.length;
 
-  // We'll process line by line
-  const lines = code.split('\n');
-  const result = lines.map(line => highlightLine(line));
-  return result.join('\n');
-}
+  while (i < n) {
+    const ch = code[i];
 
-function highlightLine(line) {
-  // Comments (must be first)
-  const commentMatch = line.match(/^(.*?)(#.*)$/);
-  if (commentMatch) {
-    return highlightTokens(commentMatch[1]) + `<span class="cm">${commentMatch[2]}</span>`;
+    // Comment
+    if (ch === '#') {
+      let j = i;
+      while (j < n && code[j] !== '\n') j++;
+      out += `<span class="cm">${esc(code.slice(i, j))}</span>`;
+      i = j;
+      continue;
+    }
+
+    // String (single or double quote, with escape support)
+    if (ch === "'" || ch === '"') {
+      const q = ch;
+      let j = i + 1;
+      while (j < n && code[j] !== q) {
+        if (code[j] === '\\') j++;
+        j++;
+      }
+      j++; // closing quote
+      out += `<span class="str">${esc(code.slice(i, j))}</span>`;
+      i = j;
+      continue;
+    }
+
+    // Number (only at word boundary — previous char is not alphanumeric/_)
+    if (/\d/.test(ch) && (i === 0 || !/[\w]/.test(code[i - 1]))) {
+      let j = i;
+      while (j < n && /[\d.]/.test(code[j])) j++;
+      out += `<span class="num">${esc(code.slice(i, j))}</span>`;
+      i = j;
+      continue;
+    }
+
+    // Word: keyword, function call, or plain identifier
+    if (/[a-zA-Z_]/.test(ch)) {
+      let j = i;
+      while (j < n && /\w/.test(code[j])) j++;
+      const word = code.slice(i, j);
+      // Look past whitespace for '('
+      let k = j;
+      while (k < n && code[k] === ' ') k++;
+      const isFn = code[k] === '(';
+
+      if (PY_KEYWORDS.has(word)) {
+        out += `<span class="kw">${esc(word)}</span>`;
+      } else if (isFn) {
+        out += `<span class="fn">${esc(word)}</span>`;
+      } else if (/^[A-Z]/.test(word)) {
+        out += `<span class="cls">${esc(word)}</span>`;
+      } else {
+        out += esc(word);
+      }
+      i = j;
+      continue;
+    }
+
+    // Everything else
+    out += esc(ch);
+    i++;
   }
-  return highlightTokens(line);
+
+  return out;
 }
 
-function highlightTokens(line) {
-  // STEP 1: Save strings as placeholders so keywords don't match inside them
-  // (prevents 'class' keyword matching inside class="str" span attributes)
-  const saved = [];
-  line = line.replace(/('(?:[^'\\]|\\.)*'|"(?:[^"\\]|\\.)*")/g, (m) => {
-    const i = saved.length;
-    saved.push(`<span class="str">${m}</span>`);
-    return `\x00${i}\x00`;
+function applyHighlighting() {
+  document.querySelectorAll('code.python').forEach(block => {
+    const raw = block.textContent;
+    block.innerHTML = highlightPython(raw);
   });
-
-  // STEP 2: Keywords (no span tags in line yet — safe)
-  const keywords = ['from', 'import', 'while', 'for', 'if', 'elif', 'else', 'def', 'class',
-                    'return', 'True', 'False', 'None', 'and', 'or', 'not', 'in', 'is',
-                    'pass', 'break', 'continue', 'global', 'self', 'with', 'as', 'try',
-                    'except', 'finally', 'raise', 'lambda', 'yield', 'del', 'assert'];
-  keywords.forEach(kw => {
-    const re = new RegExp(`\\b(${kw})\\b`, 'g');
-    line = line.replace(re, `<span class="kw">$1</span>`);
-  });
-
-  // STEP 3: Numbers
-  line = line.replace(/\b(\d+\.?\d*)\b/g, `<span class="num">$1</span>`);
-
-  // STEP 4: Function calls
-  line = line.replace(/\b([a-z_][a-zA-Z0-9_]*)(\s*\()/g, `<span class="fn">$1</span>$2`);
-
-  // STEP 5: Restore saved strings
-  saved.forEach((s, i) => {
-    line = line.split(`\x00${i}\x00`).join(s);
-  });
-
-  return line;
 }
 
 function applyHighlighting() {
