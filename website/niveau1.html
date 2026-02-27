@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Niveau 1 — BBC micro:bit · iSkohm Robot Club</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <svg class="circuit-svg" viewBox="0 0 28 28" fill="none">
+      <rect x="2" y="2" width="10" height="10" rx="2" stroke="#00b4d8" stroke-width="1.5"/>
+      <rect x="16" y="2" width="10" height="10" rx="2" stroke="#39d353" stroke-width="1.5"/>
+      <rect x="9" y="16" width="10" height="10" rx="2" stroke="#7c3aed" stroke-width="1.5"/>
+      <line x1="12" y1="7" x2="16" y2="7" stroke="#00b4d8" stroke-width="1.5"/>
+      <line x1="7" y1="12" x2="7" y2="19" stroke="#00b4d8" stroke-width="1.5"/>
+      <line x1="7" y1="19" x2="9" y2="19" stroke="#00b4d8" stroke-width="1.5"/>
+      <line x1="21" y1="12" x2="21" y2="19" stroke="#39d353" stroke-width="1.5"/>
+      <line x1="19" y1="19" x2="21" y2="19" stroke="#39d353" stroke-width="1.5"/>
+      <circle cx="7" cy="7" r="1.5" fill="#00b4d8"/>
+      <circle cx="21" cy="7" r="1.5" fill="#39d353"/>
+      <circle cx="14" cy="21" r="1.5" fill="#7c3aed"/>
+    </svg>
+    <span class="logo-text">iSkohm</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="niveau1.html" class="active">Niveau 1 <span class="nav-badge">micro:bit</span></a></li>
+    <li><a href="niveau2.html">Niveau 2 <span class="nav-badge" style="background:var(--green);color:#000">Pico</span></a></li>
+    <li><a href="competition.html">🏆 Compétition</a></li>
+  </ul>
+</nav>
+
+<div class="level-band" style="margin:0">
+  <span>🔵</span>
+  <span><strong style="color:var(--white)">Niveau 1</strong> — BBC micro:bit · MicroPython · Débutant → Avancé</span>
+</div>
+
+<section class="section">
+  <h1 class="section-title">Niveau 1 — BBC micro:bit 🔲</h1>
+  <p class="section-sub">8 leçons progressives pour apprendre à programmer avec la BBC micro:bit. Tu commences par allumer des LEDs et tu finis par faire jouer deux micro:bits au Pierre-Feuille-Ciseaux via la radio !</p>
+
+  <div class="card-grid">
+
+    <div class="card">
+      <div class="card-num">Leçon 01</div>
+      <div class="card-emoji">💡</div>
+      <div class="card-title">Lumières & Affichage</div>
+      <div class="card-desc">Affiche du texte, des images et des animations sur les LEDs de ta micro:bit</div>
+      <span class="badge badge-debutant">Débutant</span>
+      <a href="niveau1/lecon-01.html" class="btn btn-primary btn-sm">Voir la leçon →</a>
+    </div>
+
+    <div class="card">
+      <div class="card-num">Leçon 02</div>
+      <div class="card-emoji">🔘</div>
+      <div class="card-title">Boutons & Interactions</div>
+      <div class="card-desc">Réagis aux boutons A, B et au logo tactile pour contrôler ta micro:bit</div>
+      <span class="badge badge-debutant">Débutant</span>
+      <a href="niveau1/lecon-02.html" class="btn btn-primary btn-sm">Voir la leçon →</a>
+    </div>
+
+    <div class="card">
+      <div class="card-num">Leçon 03</div>
+      <div class="card-emoji">📐</div>
+      <div class="card-title">Accéléromètre</div>
+      <div class="card-desc">Détecte les mouvements, les secousses et l'orientation de ta micro:bit</div>
+      <span class="badge badge-debutant">Débutant</span>
+      <a href="niveau1/lecon-03.html" class="btn btn-primary btn-sm">Voir la leçon →</a>
+    </div>
+
+    <div class="card">
+      <div class="card-num">Leçon 04</div>
+      <div class="card-emoji">🔀</div>
+      <div class="card-title">Conditions</div>
+      <div class="card-desc">Prends des décisions avec if/else pour créer des comportements intelligents</div>
+      <span class="badge badge-intermediaire">Intermédiaire</span>
+      <a href="niveau1/lecon-04.html" class="btn btn-primary btn-sm">Voir la leçon →</a>
+    </div>
+
+    <div class="card">
+      <div class="card-num">Leçon 05</div>
+      <div class="card-emoji">🔁</div>
+      <div class="card-title">Boucles</div>
+      <div class="card-desc">Répète des actions automatiquement avec les boucles while et for</div>
+      <span class="badge badge-intermediaire">Intermédiaire</span>
+      <a href="niveau1/lecon-05.html" class="btn btn-primary btn-sm">Voir la leçon →</a>
+    </div>
+
+    <div class="card">
+      <div class="card-num">Leçon 06</div>
+      <div class="card-emoji">🗂️</div>
+      <div class="card-title">Listes & Fonctions</div>
+      <div class="card-desc">Organise ton code avec des listes et des fonctions réutilisables</div>
+      <span class="badge badge-intermediaire">Intermédiaire</span>
+      <a href="niveau1/lecon-06.html" class="btn btn-primary btn-sm">Voir la leçon →</a>
+    </div>
+
+    <div class="card">
+      <div class="card-num">Leçon 07</div>
+      <div class="card-emoji">⚙️</div>
+      <div class="card-title">Servomoteur</div>
+      <div class="card-desc">Contrôle un bras mécanique avec des angles précis grâce au signal PWM</div>
+      <span class="badge badge-avance">Avancé</span>
+      <a href="niveau1/lecon-07.html" class="btn btn-primary btn-sm">Voir la leçon →</a>
+    </div>
+
+    <div class="card">
+      <div class="card-num">Leçon 08</div>
+      <div class="card-emoji">📡</div>
+      <div class="card-title">Radio</div>
+      <div class="card-desc">Fais communiquer deux micro:bits sans fil ! Projet final : Pierre-Feuille-Ciseaux radio</div>
+      <span class="badge badge-avance">Avancé</span>
+      <a href="niveau1/lecon-08.html" class="btn btn-primary btn-sm">Voir la leçon →</a>
+    </div>
+
+  </div>
+</section>
+
+<section class="section" style="border-top:1px solid var(--border)">
+  <h2 class="section-title">🎯 Progression du Niveau 1</h2>
+  <p class="section-sub">Voilà ce que tu vas apprendre, étape par étape :</p>
+  <div style="display:grid;gap:0.6rem">
+    <div class="info-box tip">
+      <span class="icon">💡</span>
+      <div><strong>Leçons 1-3 (Débutant)</strong> — Tu découvres la micro:bit : afficher des images, utiliser les boutons et détecter les mouvements. Pas encore de logique complexe, juste voir ce que la carte peut faire !</div>
+    </div>
+    <div class="info-box info">
+      <span class="icon">🧠</span>
+      <div><strong>Leçons 4-6 (Intermédiaire)</strong> — Tu apprends à "penser comme un ordinateur" : conditions, boucles, listes et fonctions. C'est le cœur de la programmation !</div>
+    </div>
+    <div class="info-box warning">
+      <span class="icon">🚀</span>
+      <div><strong>Leçons 7-8 (Avancé)</strong> — Tu contrôles du vrai matériel (servomoteur) et tu fais communiquer deux cartes via la radio. Le projet final ? Un jeu Pierre-Feuille-Ciseaux multijoueur !</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>
+    <strong class="logo-text">iSkohm</strong> Robot Club · Sidi Kaouki, Maroc ·
+    <a href="https://iskohm.com">iskohm.com</a>
+  </p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

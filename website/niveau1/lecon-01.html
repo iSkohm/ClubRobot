@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leçon 1 — Lumières & Affichage · iSkohm</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<div class="progress-bar" id="progress"></div>
+
+<nav>
+  <a href="../index.html" class="nav-logo">
+    <svg class="circuit-svg" viewBox="0 0 28 28" fill="none">
+      <rect x="2" y="2" width="10" height="10" rx="2" stroke="#00b4d8" stroke-width="1.5"/>
+      <rect x="16" y="2" width="10" height="10" rx="2" stroke="#39d353" stroke-width="1.5"/>
+      <rect x="9" y="16" width="10" height="10" rx="2" stroke="#7c3aed" stroke-width="1.5"/>
+      <line x1="12" y1="7" x2="16" y2="7" stroke="#00b4d8" stroke-width="1.5"/>
+      <line x1="7" y1="12" x2="7" y2="19" stroke="#00b4d8" stroke-width="1.5"/>
+      <line x1="7" y1="19" x2="9" y2="19" stroke="#00b4d8" stroke-width="1.5"/>
+      <line x1="21" y1="12" x2="21" y2="19" stroke="#39d353" stroke-width="1.5"/>
+      <line x1="19" y1="19" x2="21" y2="19" stroke="#39d353" stroke-width="1.5"/>
+      <circle cx="7" cy="7" r="1.5" fill="#00b4d8"/>
+      <circle cx="21" cy="7" r="1.5" fill="#39d353"/>
+      <circle cx="14" cy="21" r="1.5" fill="#7c3aed"/>
+    </svg>
+    <span class="logo-text">iSkohm</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="../index.html">Accueil</a></li>
+    <li><a href="../niveau1.html" class="active">Niveau 1</a></li>
+    <li><a href="../niveau2.html">Niveau 2</a></li>
+    <li><a href="../competition.html">🏆 Compétition</a></li>
+  </ul>
+</nav>
+
+<div class="lesson-layout">
+
+  <div class="breadcrumb">
+    <a href="../index.html">Accueil</a>
+    <span class="sep">›</span>
+    <a href="../niveau1.html">Niveau 1</a>
+    <span class="sep">›</span>
+    <span class="current">Leçon 1 — Lumières & Affichage</span>
+  </div>
+
+  <div class="lesson-header">
+    <div class="lesson-emoji">💡</div>
+    <h1 class="lesson-title">
+      Lumières & Affichage
+      <span class="badge badge-debutant">Débutant</span>
+    </h1>
+    <div class="niveau-badge">🔵 Niveau 1 · BBC micro:bit · Leçon 1/8</div>
+  </div>
+
+  <!-- OBJECTIFS -->
+  <div class="lesson-section">
+    <h2>🎯 Objectifs</h2>
+    <ul>
+      <li>Comprendre la structure d'un programme MicroPython pour la micro:bit</li>
+      <li>Afficher des images prédéfinies sur la grille de 5×5 LEDs</li>
+      <li>Créer tes propres images pixel par pixel</li>
+      <li>Faire défiler du texte sur l'écran</li>
+      <li>Créer une animation en allumant les LEDs une par une</li>
+      <li>Utiliser la fonction <code>sleep()</code> pour contrôler la vitesse</li>
+    </ul>
+  </div>
+
+  <!-- MATÉRIEL -->
+  <div class="lesson-section">
+    <h2>🛠️ Matériel nécessaire</h2>
+    <div class="material-grid">
+      <span class="material-tag">🔲 BBC micro:bit v2</span>
+      <span class="material-tag">🔌 Câble USB</span>
+      <span class="material-tag">💻 Éditeur Mu ou python.microbit.org</span>
+    </div>
+  </div>
+
+  <!-- COURS -->
+  <div class="lesson-section">
+    <h2>📖 Cours</h2>
+
+    <h3>La grille de LEDs</h3>
+    <p>La BBC micro:bit possède une grille de <strong>5×5 = 25 LEDs</strong>. Chaque LED est identifiée par sa position (x, y) :</p>
+    <div class="info-box info">
+      <span class="icon">ℹ️</span>
+      <div>La colonne <strong>x</strong> va de 0 (gauche) à 4 (droite). La ligne <strong>y</strong> va de 0 (haut) à 4 (bas). La LED en haut à gauche est donc (0, 0).</div>
+    </div>
+
+    <h3>La première ligne — importer la bibliothèque</h3>
+    <p>Chaque programme commence toujours par cette ligne :</p>
+
+    <div class="code-block">
+      <div class="code-block-header">
+        <div class="code-block-lang"><div class="lang-dot"></div>Python</div>
+        <button class="copy-btn">Copier</button>
+      </div>
+      <div class="code-content"><code class="python">from microbit import *</code></div>
+    </div>
+    <p>Cette ligne dit à Python : "donne-moi accès à toutes les fonctions de la micro:bit". Sans elle, rien ne fonctionne !</p>
+
+    <h3>Exemple 1 — Afficher une image et du texte</h3>
+    <p>Le code dans une boucle <code>while True:</code> s'exécute pour toujours, en boucle infinie :</p>
+
+    <div class="code-block">
+      <div class="code-block-header">
+        <div class="code-block-lang"><div class="lang-dot"></div>1.image_texte.py</div>
+        <button class="copy-btn">Copier</button>
+      </div>
+      <div class="code-content"><code class="python">from microbit import *
+
+
+# Le code dans une boucle while True: s'execute pour toujours
+while True:
+    display.show(Image.HEART)
+    sleep(1000)
+    display.scroll('Bonjour')</code></div>
+    </div>
+
+    <p>Explications ligne par ligne :</p>
+    <ul>
+      <li><strong><code>while True:</code></strong> — boucle infinie, le code recommence toujours</li>
+      <li><strong><code>display.show(Image.HEART)</code></strong> — affiche le cœur prédéfini</li>
+      <li><strong><code>sleep(1000)</code></strong> — attend 1000 millisecondes (= 1 seconde)</li>
+      <li><strong><code>display.scroll('Bonjour')</code></strong> — fait défiler le texte de droite à gauche</li>
+    </ul>
+
+    <div class="info-box tip">
+      <span class="icon">💡</span>
+      <div>Il existe plein d'images prédéfinies : <code>Image.HEART</code>, <code>Image.HAPPY</code>, <code>Image.SAD</code>, <code>Image.DUCK</code>, <code>Image.ARROW_N</code>, et bien d'autres !</div>
+    </div>
+
+    <h3>Exemple 2 — Créer sa propre image</h3>
+    <p>Tu peux dessiner tes propres images ! Chaque chiffre représente la luminosité d'une LED, de 0 (éteinte) à 9 (maximum) :</p>
+
+    <div class="code-block">
+      <div class="code-block-header">
+        <div class="code-block-lang"><div class="lang-dot"></div>2.etoile.py</div>
+        <button class="copy-btn">Copier</button>
+      </div>
+      <div class="code-content"><code class="python">from microbit import *
+
+while True:
+    display.show(Image('00300:'
+                       '03630:'
+                       '36963:'
+                       '03630:'
+                       '00300'))</code></div>
+    </div>
+
+    <p>Chaque ligne de l'image est séparée par <code>:</code>. Il y a 5 chiffres par ligne (une pour chaque colonne) et 5 lignes.</p>
+
+    <h3>Exemple 3 — Allumer des LEDs individuellement</h3>
+    <p>La fonction <code>display.set_pixel(x, y, luminosité)</code> allume une seule LED :</p>
+
+    <div class="code-block">
+      <div class="code-block-header">
+        <div class="code-block-lang"><div class="lang-dot"></div>3.individuelle.py</div>
+        <button class="copy-btn">Copier</button>
+      </div>
+      <div class="code-content"><code class="python">from microbit import *
+
+while True:
+    display.show(Image('00000:'
+                       '00000:'
+                       '00900:'
+                       '00000:'
+                       '00000'))
+    sleep(2000)
+    display.clear()
+
+    display.set_pixel(0, 2, 9)
+    sleep(2000)</code></div>
+    </div>
+
+    <h3>Exemple 4 — Animation LED par LED</h3>
+    <p>En allumant les LEDs une par une avec un délai, on crée une animation !</p>
+
+    <div class="code-block">
+      <div class="code-block-header">
+        <div class="code-block-lang"><div class="lang-dot"></div>4.individuelle_animee.py</div>
+        <button class="copy-btn">Copier</button>
+      </div>
+      <div class="code-content"><code class="python">from microbit import *
+
+while True:
+    display.set_pixel(0, 2, 9)
+    sleep(500)
+    display.set_pixel(0, 1, 9)
+    sleep(500)
+    display.set_pixel(0, 0, 9)
+    sleep(500)
+    display.set_pixel(1, 0, 9)
+    sleep(500)
+    display.set_pixel(2, 0, 9)
+    sleep(500)
+    display.set_pixel(3, 0, 9)
+    sleep(500)
+    display.set_pixel(3, 1, 9)
+    sleep(500)
+    display.set_pixel(3, 2, 9)
+    sleep(500)
+    display.set_pixel(3, 2, 7)
+    sleep(500)
+    display.set_pixel(3, 2, 5)
+    sleep(500)
+    display.set_pixel(3, 2, 3)
+    sleep(500)
+    display.set_pixel(3, 2, 0)
+    sleep(3000)
+
+    display.clear()</code></div>
+    </div>
+
+    <p>Remarque comment la dernière LED diminue progressivement (9 → 7 → 5 → 3 → 0) pour créer un effet de fondu !</p>
+  </div>
+
+  <!-- EXERCICES -->
+  <div class="lesson-section">
+    <h2>✏️ Exercices</h2>
+
+    <div class="exercice-card">
+      <div class="ex-num">Exercice 1</div>
+      <h3>Ton prénom en LED !</h3>
+      <p>Modifie le programme <code>1.image_texte.py</code> pour afficher ton prénom à la place de "Bonjour". Essaie aussi de changer l'image par <code>Image.HAPPY</code> ou <code>Image.DUCK</code>.</p>
+    </div>
+
+    <div class="exercice-card">
+      <div class="ex-num">Exercice 2</div>
+      <h3>Dessine ton propre pixel art</h3>
+      <p>En utilisant le format d'image avec les chiffres 0-9, dessine quelque chose de ton choix : une maison, un robot, un visage, une flèche... Sois créatif ! Tu peux utiliser des luminosités différentes pour les dégradés.</p>
+    </div>
+
+    <div class="exercice-card">
+      <div class="ex-num">Exercice 3 — Défi</div>
+      <h3>Animation complète d'un carré</h3>
+      <p>Crée une animation qui dessine un carré complet de 5×5 LEDs, en allumant les LEDs tout autour du bord (pas le centre). Les LEDs doivent s'allumer une par une dans le sens des aiguilles d'une montre !</p>
+    </div>
+  </div>
+
+  <!-- À RETENIR -->
+  <div class="lesson-section">
+    <div class="retenir-box">
+      <h2>🧠 À retenir</h2>
+      <ul class="retenir-list">
+        <li><strong>from microbit import *</strong> — toujours la première ligne !</li>
+        <li><strong>while True:</strong> — boucle infinie, le code tourne en permanence</li>
+        <li><strong>display.show(Image.NOM)</strong> — affiche une image prédéfinie</li>
+        <li><strong>display.scroll('texte')</strong> — fait défiler du texte</li>
+        <li><strong>display.set_pixel(x, y, luminosité)</strong> — allume une LED (0 à 9)</li>
+        <li><strong>display.clear()</strong> — éteint toutes les LEDs</li>
+        <li><strong>sleep(millisecondes)</strong> — fait une pause (1000 ms = 1 seconde)</li>
+        <li>Les coordonnées vont de (0,0) en haut à gauche jusqu'à (4,4) en bas à droite</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- FICHE IMPRIMABLE -->
+  <div style="margin-top:2rem">
+    <a href="../worksheets/niveau1-lecon-01.html" class="btn btn-secondary" target="_blank">🖨️ Fiche imprimable</a>
+  </div>
+
+  <!-- NAV LEÇONS -->
+  <div class="lesson-nav">
+    <span></span>
+    <a href="lecon-02.html">Leçon 2 — Boutons & Interactions →</a>
+  </div>
+
+</div>
+
+<footer>
+  <p><strong class="logo-text">iSkohm</strong> Robot Club · <a href="https://iskohm.com">iskohm.com</a></p>
+</footer>
+
+<script src="../app.js"></script>
+</body>
+</html>

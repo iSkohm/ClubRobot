@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leçon 4 — Conditions · iSkohm</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<div class="progress-bar"></div>
+
+<nav>
+  <a href="../index.html" class="nav-logo">
+    <svg class="circuit-svg" viewBox="0 0 28 28" fill="none">
+      <rect x="2" y="2" width="10" height="10" rx="2" stroke="#00b4d8" stroke-width="1.5"/>
+      <rect x="16" y="2" width="10" height="10" rx="2" stroke="#39d353" stroke-width="1.5"/>
+      <rect x="9" y="16" width="10" height="10" rx="2" stroke="#7c3aed" stroke-width="1.5"/>
+      <line x1="12" y1="7" x2="16" y2="7" stroke="#00b4d8" stroke-width="1.5"/>
+      <line x1="7" y1="12" x2="7" y2="19" stroke="#00b4d8" stroke-width="1.5"/>
+      <line x1="7" y1="19" x2="9" y2="19" stroke="#00b4d8" stroke-width="1.5"/>
+      <line x1="21" y1="12" x2="21" y2="19" stroke="#39d353" stroke-width="1.5"/>
+      <line x1="19" y1="19" x2="21" y2="19" stroke="#39d353" stroke-width="1.5"/>
+      <circle cx="7" cy="7" r="1.5" fill="#00b4d8"/>
+      <circle cx="21" cy="7" r="1.5" fill="#39d353"/>
+      <circle cx="14" cy="21" r="1.5" fill="#7c3aed"/>
+    </svg>
+    <span class="logo-text">iSkohm</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="../index.html">Accueil</a></li>
+    <li><a href="../niveau1.html" class="active">Niveau 1</a></li>
+    <li><a href="../niveau2.html">Niveau 2</a></li>
+    <li><a href="../competition.html">🏆 Compétition</a></li>
+  </ul>
+</nav>
+
+<div class="lesson-layout">
+
+  <div class="breadcrumb">
+    <a href="../index.html">Accueil</a>
+    <span class="sep">›</span>
+    <a href="../niveau1.html">Niveau 1</a>
+    <span class="sep">›</span>
+    <span class="current">Leçon 4 — Conditions</span>
+  </div>
+
+  <div class="lesson-header">
+    <div class="lesson-emoji">🔀</div>
+    <h1 class="lesson-title">
+      Conditions
+      <span class="badge badge-intermediaire">Intermédiaire</span>
+    </h1>
+    <div class="niveau-badge">🔵 Niveau 1 · BBC micro:bit · Leçon 4/8</div>
+  </div>
+
+  <div class="lesson-section">
+    <h2>🎯 Objectifs</h2>
+    <ul>
+      <li>Maîtriser la structure <code>if / else</code> complète</li>
+      <li>Comparer des variables avec <code>==</code>, <code>&gt;</code>, <code>&lt;</code>, <code>!=</code></li>
+      <li>Créer un programme avec un score qui déclenche des événements</li>
+      <li>Comprendre la différence entre <code>=</code> (affectation) et <code>==</code> (comparaison)</li>
+    </ul>
+  </div>
+
+  <div class="lesson-section">
+    <h2>🛠️ Matériel nécessaire</h2>
+    <div class="material-grid">
+      <span class="material-tag">🔲 BBC micro:bit v2</span>
+      <span class="material-tag">🔌 Câble USB</span>
+    </div>
+  </div>
+
+  <div class="lesson-section">
+    <h2>📖 Cours</h2>
+
+    <h3>Le if / else complet</h3>
+    <p>Dans les leçons précédentes, on a vu <code>if</code>. Maintenant on ajoute <code>else</code> (sinon) : une action si la condition est vraie, une autre si elle est fausse.</p>
+
+    <div class="code-block">
+      <div class="code-block-header">
+        <div class="code-block-lang"><div class="lang-dot"></div>1.if_else.py</div>
+        <button class="copy-btn">Copier</button>
+      </div>
+      <div class="code-content"><code class="python">from microbit import *
+
+while True:
+    if button_a.is_pressed():
+        display.set_pixel(1, 2, 9)
+    else:
+        display.clear()
+    if button_b.is_pressed():
+        display.set_pixel(3, 2, 9)
+    else:
+        display.clear()</code></div>
+    </div>
+
+    <p>Ici, chaque bouton a son propre <code>if/else</code> : si appuyé → LED allumée, sinon → écran éteint.</p>
+
+    <h3>Les opérateurs de comparaison</h3>
+    <div class="code-block">
+      <div class="code-block-header">
+        <div class="code-block-lang"><div class="lang-dot"></div>Opérateurs</div>
+        <button class="copy-btn">Copier</button>
+      </div>
+      <div class="code-content"><code class="python"># Comparaisons (retournent True ou False)
+score == 3      # égal à (DEUX signes égal !)
+score != 3      # différent de
+score > 3       # strictement plus grand
+score < 3       # strictement plus petit
+score >= 3      # plus grand ou égal
+score <= 3      # plus petit ou égal</code></div>
+    </div>
+
+    <div class="info-box warning">
+      <span class="icon">⚠️</span>
+      <div><strong>Erreur classique !</strong> <code>=</code> (un signe) affecte une valeur à une variable. <code>==</code> (deux signes) compare deux valeurs. Ne les confonds pas !</div>
+    </div>
+
+    <h3>Exemple 2 — Système de score avec événements</h3>
+    <p>Ce programme crée un compteur avec des événements spéciaux aux valeurs extrêmes :</p>
+
+    <div class="code-block">
+      <div class="code-block-header">
+        <div class="code-block-lang"><div class="lang-dot"></div>2.variables.py</div>
+        <button class="copy-btn">Copier</button>
+      </div>
+      <div class="code-content"><code class="python">from microbit import *
+
+score = 0
+
+while True:
+
+    if button_a.is_pressed():
+        score = score + 1
+        display.scroll(score)
+    if button_b.is_pressed():
+        score = score - 1
+        display.scroll(score)
+
+    if score == 3:
+        audio.play(Sound.GIGGLE)
+        score = 0
+    if score == -3:
+        audio.play(Sound.YAWN)
+        score = 0</code></div>
+    </div>
+
+    <p>Le score augmente avec A, diminue avec B. Quand il atteint 3 ou -3, un son se déclenche et le score se remet à 0.</p>
+
+    <h3>La structure complète if / elif / else</h3>
+    <div class="code-block">
+      <div class="code-block-header">
+        <div class="code-block-lang"><div class="lang-dot"></div>Exemple complet</div>
+        <button class="copy-btn">Copier</button>
+      </div>
+      <div class="code-content"><code class="python">from microbit import *
+
+temperature = 25  # exemple
+
+if temperature > 30:
+    display.scroll('Chaud!')
+elif temperature > 20:
+    display.scroll('Bien')
+elif temperature > 10:
+    display.scroll('Frais')
+else:
+    display.scroll('Froid!')</code></div>
+    </div>
+  </div>
+
+  <div class="lesson-section">
+    <h2>✏️ Exercices</h2>
+
+    <div class="exercice-card">
+      <div class="ex-num">Exercice 1</div>
+      <h3>Feux de circulation</h3>
+      <p>Crée un système de feux : bouton A avance l'état (vert → orange → rouge), bouton B revient en arrière. Affiche une image différente pour chaque état. Utilise une variable <code>etat</code> qui vaut 0, 1 ou 2.</p>
+    </div>
+
+    <div class="exercice-card">
+      <div class="ex-num">Exercice 2</div>
+      <h3>Chronomètre avec réactions</h3>
+      <p>Crée un compteur de secousses (comme leçon 3) mais avec des réactions conditionnelles : 0-2 → image endormie, 3-5 → image surprise, 6+ → image heureuse + son + remise à zéro.</p>
+    </div>
+
+    <div class="exercice-card">
+      <div class="ex-num">Exercice 3 — Défi</div>
+      <h3>Pierre Feuille Ciseaux solo</h3>
+      <p>Quand tu secoues la micro:bit, elle choisit aléatoirement entre Pierre (P), Feuille (F) et Ciseaux (C) et l'affiche. Tu dois choisir avec le bouton A (P), B (F) ou logo (C). Compare et affiche le résultat !</p>
+    </div>
+  </div>
+
+  <div class="lesson-section">
+    <div class="retenir-box">
+      <h2>🧠 À retenir</h2>
+      <ul class="retenir-list">
+        <li><strong>if condition: ... else: ...</strong> — une branche ou l'autre</li>
+        <li><strong>elif</strong> — "sinon si", pour enchaîner plusieurs conditions</li>
+        <li><strong>==</strong> compare (deux signes égal !), <strong>=</strong> affecte une valeur</li>
+        <li>Opérateurs : ==, !=, &gt;, &lt;, &gt;=, &lt;=</li>
+        <li><strong>score = score + 1</strong> ou raccourci <strong>score += 1</strong></li>
+        <li>Une seule branche s'exécute dans un if/elif/else</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="lesson-nav">
+    <a href="lecon-03.html">← Leçon 3 — Accéléromètre</a>
+    <a href="lecon-05.html">Leçon 5 — Boucles →</a>
+  </div>
+
+</div>
+
+<footer>
+  <p><strong class="logo-text">iSkohm</strong> Robot Club · <a href="https://iskohm.com">iskohm.com</a></p>
+</footer>
+
+<script src="../app.js"></script>
+</body>
+</html>

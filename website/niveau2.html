@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Niveau 2 — Raspberry Pi Pico + Robot Otto · iSkohm</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <svg class="circuit-svg" viewBox="0 0 28 28" fill="none">
+      <rect x="2" y="2" width="10" height="10" rx="2" stroke="#00b4d8" stroke-width="1.5"/>
+      <rect x="16" y="2" width="10" height="10" rx="2" stroke="#39d353" stroke-width="1.5"/>
+      <rect x="9" y="16" width="10" height="10" rx="2" stroke="#7c3aed" stroke-width="1.5"/>
+      <line x1="12" y1="7" x2="16" y2="7" stroke="#00b4d8" stroke-width="1.5"/>
+      <line x1="7" y1="12" x2="7" y2="19" stroke="#00b4d8" stroke-width="1.5"/>
+      <line x1="7" y1="19" x2="9" y2="19" stroke="#00b4d8" stroke-width="1.5"/>
+      <line x1="21" y1="12" x2="21" y2="19" stroke="#39d353" stroke-width="1.5"/>
+      <line x1="19" y1="19" x2="21" y2="19" stroke="#39d353" stroke-width="1.5"/>
+      <circle cx="7" cy="7" r="1.5" fill="#00b4d8"/>
+      <circle cx="21" cy="7" r="1.5" fill="#39d353"/>
+      <circle cx="14" cy="21" r="1.5" fill="#7c3aed"/>
+    </svg>
+    <span class="logo-text">iSkohm</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="niveau1.html">Niveau 1 <span class="nav-badge">micro:bit</span></a></li>
+    <li><a href="niveau2.html" class="active">Niveau 2 <span class="nav-badge" style="background:var(--green);color:#000">Pico</span></a></li>
+    <li><a href="competition.html">🏆 Compétition</a></li>
+  </ul>
+</nav>
+
+<div class="level-band" style="margin:0;background:linear-gradient(90deg,rgba(57,211,83,0.08),transparent);border-color:var(--green)">
+  <span>🟢</span>
+  <span><strong style="color:var(--white)">Niveau 2</strong> — Raspberry Pi Pico · MicroPython · Robot Otto · Intermédiaire → Avancé</span>
+</div>
+
+<section class="section">
+  <h1 class="section-title">Niveau 2 — Raspberry Pi Pico + Robot Otto 🤖</h1>
+  <p class="section-sub">Le vrai robot ! Tu programme les servomoteurs, tu fais bouger l'Otto, tu crées des parcours automatiques et tu prépares ta stratégie pour la compétition.</p>
+
+  <div class="card-grid">
+
+    <div class="card">
+      <div class="card-num">Leçon 01</div>
+      <div class="card-emoji">🎛️</div>
+      <div class="card-title">Introduction au Pico</div>
+      <div class="card-desc">Découvre le Raspberry Pi Pico et MicroPython — les différences avec la micro:bit</div>
+      <span class="badge badge-intermediaire">Intermédiaire</span>
+      <a href="niveau2/lecon-01.html" class="btn btn-green btn-sm">Voir la leçon →</a>
+    </div>
+
+    <div class="card">
+      <div class="card-num">Leçon 02</div>
+      <div class="card-emoji">⚙️</div>
+      <div class="card-title">Servomoteurs PWM</div>
+      <div class="card-desc">Contrôle les roues de ton robot avec des signaux PWM précis</div>
+      <span class="badge badge-intermediaire">Intermédiaire</span>
+      <a href="niveau2/lecon-02.html" class="btn btn-green btn-sm">Voir la leçon →</a>
+    </div>
+
+    <div class="card">
+      <div class="card-num">Leçon 03</div>
+      <div class="card-emoji">🤖</div>
+      <div class="card-title">Mouvement de base</div>
+      <div class="card-desc">Avance, recule, tourne gauche, tourne droite — programme tous les mouvements</div>
+      <span class="badge badge-intermediaire">Intermédiaire</span>
+      <a href="niveau2/lecon-03.html" class="btn btn-green btn-sm">Voir la leçon →</a>
+    </div>
+
+    <div class="card coming-soon">
+      <div class="card-num">Leçon 04</div>
+      <div class="card-emoji">🗺️</div>
+      <div class="card-title">Parcours programmé</div>
+      <div class="card-desc">Programme une séquence de mouvements pour traverser un parcours</div>
+      <span class="badge badge-coming">Bientôt</span>
+    </div>
+
+    <div class="card coming-soon">
+      <div class="card-num">Leçon 05</div>
+      <div class="card-emoji">🎮</div>
+      <div class="card-title">Télécommande Bluetooth</div>
+      <div class="card-desc">Contrôle ton robot avec une manette Bluetooth depuis ton téléphone !</div>
+      <span class="badge badge-coming">Bientôt</span>
+    </div>
+
+    <div class="card coming-soon">
+      <div class="card-num">Leçon 06</div>
+      <div class="card-emoji">📡</div>
+      <div class="card-title">Capteurs de distance</div>
+      <div class="card-desc">Évite les obstacles automatiquement avec un capteur ultrasonique</div>
+      <span class="badge badge-coming">Bientôt</span>
+    </div>
+
+    <div class="card coming-soon">
+      <div class="card-num">Leçon 07</div>
+      <div class="card-emoji">🏗️</div>
+      <div class="card-title">Construction du robot</div>
+      <div class="card-desc">Monte et câble ton Otto — guide d'assemblage étape par étape</div>
+      <span class="badge badge-coming">Bientôt</span>
+    </div>
+
+    <div class="card coming-soon">
+      <div class="card-num">Leçon 08</div>
+      <div class="card-emoji">🏆</div>
+      <div class="card-title">Prépare la compétition</div>
+      <div class="card-desc">Stratégie, optimisation du code et team work pour la Robot Battle !</div>
+      <span class="badge badge-coming">Bientôt</span>
+    </div>
+
+  </div>
+</section>
+
+<section class="section" style="border-top:1px solid var(--border)">
+  <h2 class="section-title">🔲 Le Raspberry Pi Pico vs BBC micro:bit</h2>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-emoji">🔲</div>
+      <div class="card-title">BBC micro:bit</div>
+      <div class="card-desc">
+        <ul style="padding-left:1rem;margin-top:.5rem">
+          <li>Conçu pour l'éducation</li>
+          <li>LEDs, boutons, capteurs intégrés</li>
+          <li>Radio, Bluetooth intégré</li>
+          <li>Idéal pour apprendre les bases</li>
+          <li>Limité pour les projets complexes</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card" style="border-color:rgba(57,211,83,0.4)">
+      <div class="card-emoji">🫐</div>
+      <div class="card-title">Raspberry Pi Pico</div>
+      <div class="card-desc">
+        <ul style="padding-left:1rem;margin-top:.5rem">
+          <li>Microcontrôleur professionnel</li>
+          <li>Processeur RP2040 double cœur</li>
+          <li>26 pins GPIO programmables</li>
+          <li>PWM sur tous les pins</li>
+          <li>Parfait pour contrôler des robots !</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p><strong class="logo-text">iSkohm</strong> Robot Club · <a href="https://iskohm.com">iskohm.com</a></p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

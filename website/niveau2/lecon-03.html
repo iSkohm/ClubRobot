@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leçon N2-03 — Mouvement de base · iSkohm</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<div class="progress-bar"></div>
+
+<nav>
+  <a href="../index.html" class="nav-logo">
+    <svg class="circuit-svg" viewBox="0 0 28 28" fill="none">
+      <rect x="2" y="2" width="10" height="10" rx="2" stroke="#00b4d8" stroke-width="1.5"/>
+      <rect x="16" y="2" width="10" height="10" rx="2" stroke="#39d353" stroke-width="1.5"/>
+      <rect x="9" y="16" width="10" height="10" rx="2" stroke="#7c3aed" stroke-width="1.5"/>
+      <line x1="12" y1="7" x2="16" y2="7" stroke="#00b4d8" stroke-width="1.5"/>
+      <line x1="7" y1="12" x2="7" y2="19" stroke="#00b4d8" stroke-width="1.5"/>
+      <line x1="7" y1="19" x2="9" y2="19" stroke="#00b4d8" stroke-width="1.5"/>
+      <line x1="21" y1="12" x2="21" y2="19" stroke="#39d353" stroke-width="1.5"/>
+      <line x1="19" y1="19" x2="21" y2="19" stroke="#39d353" stroke-width="1.5"/>
+      <circle cx="7" cy="7" r="1.5" fill="#00b4d8"/>
+      <circle cx="21" cy="7" r="1.5" fill="#39d353"/>
+      <circle cx="14" cy="21" r="1.5" fill="#7c3aed"/>
+    </svg>
+    <span class="logo-text">iSkohm</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="../index.html">Accueil</a></li>
+    <li><a href="../niveau1.html">Niveau 1</a></li>
+    <li><a href="../niveau2.html" class="active">Niveau 2</a></li>
+    <li><a href="../competition.html">🏆 Compétition</a></li>
+  </ul>
+</nav>
+
+<div class="lesson-layout">
+
+  <div class="breadcrumb">
+    <a href="../index.html">Accueil</a>
+    <span class="sep">›</span>
+    <a href="../niveau2.html">Niveau 2</a>
+    <span class="sep">›</span>
+    <span class="current">Leçon 3 — Mouvement de base</span>
+  </div>
+
+  <div class="lesson-header">
+    <div class="lesson-emoji">🤖</div>
+    <h1 class="lesson-title">
+      Mouvement de base
+      <span class="badge badge-intermediaire">Intermédiaire</span>
+    </h1>
+    <div class="niveau-badge">🟢 Niveau 2 · Raspberry Pi Pico · Leçon 3/8</div>
+  </div>
+
+  <div class="lesson-section">
+    <h2>🎯 Objectifs</h2>
+    <ul>
+      <li>Comprendre le fonctionnement d'un robot différentiel (roues indépendantes)</li>
+      <li>Programmer les fonctions : avance, recule, tourne gauche, tourne droite, stop</li>
+      <li>Créer une bibliothèque de mouvements réutilisable</li>
+      <li>Tester et calibrer les mouvements du robot</li>
+    </ul>
+  </div>
+
+  <div class="lesson-section">
+    <h2>🛠️ Matériel nécessaire</h2>
+    <div class="material-grid">
+      <span class="material-tag">🫐 Raspberry Pi Pico</span>
+      <span class="material-tag">🤖 Robot Otto assemblé</span>
+      <span class="material-tag">🔋 Alimentation 5V</span>
+      <span class="material-tag">💻 Thonny IDE</span>
+    </div>
+  </div>
+
+  <div class="lesson-section">
+    <h2>📖 Cours</h2>
+
+    <h3>Le robot différentiel</h3>
+    <p>Notre robot Otto est un <strong>robot différentiel</strong> : il a deux roues indépendantes. En contrôlant la vitesse et la direction de chaque roue séparément, on peut faire tous les mouvements :</p>
+
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1rem;margin:1rem 0;font-size:0.875rem">
+      <table style="width:100%;border-collapse:collapse;color:var(--muted)">
+        <tr style="border-bottom:1px solid var(--border)">
+          <th style="text-align:left;padding:.5rem;color:var(--white)">Mouvement</th>
+          <th style="text-align:center;padding:.5rem;color:var(--white)">Roue Gauche</th>
+          <th style="text-align:center;padding:.5rem;color:var(--white)">Roue Droite</th>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border)">
+          <td style="padding:.5rem">⬆️ Avancer</td>
+          <td style="text-align:center;padding:.5rem;color:var(--green)">↺ CCW_MAX</td>
+          <td style="text-align:center;padding:.5rem;color:var(--blue)">↻ CW_MAX</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border)">
+          <td style="padding:.5rem">⬇️ Reculer</td>
+          <td style="text-align:center;padding:.5rem;color:var(--blue)">↻ CW_MAX</td>
+          <td style="text-align:center;padding:.5rem;color:var(--green)">↺ CCW_MAX</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border)">
+          <td style="padding:.5rem">↩️ Tourner gauche</td>
+          <td style="text-align:center;padding:.5rem;color:var(--blue)">↻ CW_MAX</td>
+          <td style="text-align:center;padding:.5rem;color:var(--blue)">↻ CW_MAX</td>
+        </tr>
+        <tr>
+          <td style="padding:.5rem">↪️ Tourner droite</td>
+          <td style="text-align:center;padding:.5rem;color:var(--green)">↺ CCW_MAX</td>
+          <td style="text-align:center;padding:.5rem;color:var(--green)">↺ CCW_MAX</td>
+        </tr>
+      </table>
+    </div>
+
+    <h3>Le code complet — 1.Servo.py</h3>
+    <p>Voici le fichier de mouvements de base de notre robot. Copie-le sur le Pico sous le nom <code>1.Servo.py</code> :</p>
+
+    <div class="code-block">
+      <div class="code-block-header">
+        <div class="code-block-lang"><div class="lang-dot"></div>pico/1.Servo.py</div>
+        <button class="copy-btn">Copier</button>
+      </div>
+      <div class="code-content"><code class="python">from machine import Pin, PWM, time_pulse_us
+import time
+
+
+# PWM setup
+servo_gauche = PWM(Pin(15))
+servo_droit = PWM(Pin(16))
+
+servo_gauche.freq(50)
+servo_droit.freq(50)
+
+# === Pulse Width Constants (16-bit duty) ===
+STOP      = 4915   # ~1.5 ms
+CW_MAX    = 3276   # ~1.0 ms  Max Sens Aiguille
+CCW_MAX   = 6553   # ~2.0 ms  Max Oppose
+
+
+
+def avance(temps_secondes = 2):
+    servo_gauche.duty_u16(CCW_MAX)
+    servo_droit.duty_u16(CW_MAX)
+    time.sleep(temps_secondes)
+    stop()
+    
+
+def recule(temps_secondes = 2):
+    servo_gauche.duty_u16(CW_MAX)
+    servo_droit.duty_u16(CCW_MAX)
+    time.sleep(temps_secondes)
+    stop()
+
+
+def tourne_gauche(temps_secondes = 1):
+    servo_gauche.duty_u16(CW_MAX)
+    servo_droit.duty_u16(CW_MAX)
+    time.sleep(temps_secondes)
+    stop()
+    
+
+def tourne_droite(temps_secondes = 1):
+    servo_gauche.duty_u16(CCW_MAX)
+    servo_droit.duty_u16(CCW_MAX)
+    time.sleep(temps_secondes)
+    stop()
+
+
+def stop():
+    servo_gauche.duty_u16(STOP)
+    servo_droit.duty_u16(STOP)</code></div>
+    </div>
+
+    <h3>Analyse du code</h3>
+    <p>Points importants :</p>
+    <ul>
+      <li><strong>Paramètre par défaut</strong> : <code>def avance(temps_secondes = 2)</code> — si on appelle <code>avance()</code> sans argument, elle avance 2 secondes. Mais on peut écrire <code>avance(0.5)</code> pour avancer seulement 0.5 secondes !</li>
+      <li><strong>stop() à la fin</strong> : chaque fonction de mouvement appelle <code>stop()</code> à la fin — le robot s'arrête automatiquement après le mouvement.</li>
+      <li><strong>Sens opposés pour avancer</strong> : le servo gauche tourne en CCW (anti-horaire) et le droit en CW (horaire). C'est normal car les moteurs sont montés face à face dans le robot !</li>
+    </ul>
+
+    <h3>Utiliser les fonctions de mouvement</h3>
+
+    <div class="code-block">
+      <div class="code-block-header">
+        <div class="code-block-lang"><div class="lang-dot"></div>main.py — exemple de parcours</div>
+        <button class="copy-btn">Copier</button>
+      </div>
+      <div class="code-content"><code class="python"># Importe toutes les fonctions de 1.Servo.py
+from Servo import *  # ou copie le code directement
+import time
+
+# Parcours carré
+avance(1)         # avance 1 seconde
+time.sleep(0.2)   # petite pause
+
+tourne_droite(0.5)  # tourne 90° (calibre la durée !)
+time.sleep(0.2)
+
+avance(1)
+time.sleep(0.2)
+
+tourne_droite(0.5)
+time.sleep(0.2)
+
+avance(1)
+time.sleep(0.2)
+
+tourne_droite(0.5)
+time.sleep(0.2)
+
+avance(1)         # quatrième côté du carré
+stop()</code></div>
+    </div>
+
+    <div class="info-box tip">
+      <span class="icon">⏱️</span>
+      <div>Pour faire un virage à 90°, tu dois calibrer la durée expérimentalement. Commence par <code>tourne_droite(0.5)</code> et ajuste jusqu'à obtenir exactement 90°. La durée dépend de la vitesse des servos et du poids du robot !</div>
+    </div>
+
+    <h3>Ajouter des vitesses variables</h3>
+
+    <div class="code-block">
+      <div class="code-block-header">
+        <div class="code-block-lang"><div class="lang-dot"></div>Vitesses variables</div>
+        <button class="copy-btn">Copier</button>
+      </div>
+      <div class="code-content"><code class="python">from machine import Pin, PWM
+import time
+
+servo_gauche = PWM(Pin(15))
+servo_droit = PWM(Pin(16))
+servo_gauche.freq(50)
+servo_droit.freq(50)
+
+STOP    = 4915
+CW_MAX  = 3276
+CCW_MAX = 6553
+
+def avance_vitesse(vitesse, temps):
+    # vitesse entre 0.0 (lent) et 1.0 (max)
+    # Calcule le duty_u16 proportionnellement
+    g_duty = int(STOP + (CCW_MAX - STOP) * vitesse)
+    d_duty = int(STOP - (STOP - CW_MAX) * vitesse)
+    servo_gauche.duty_u16(g_duty)
+    servo_droit.duty_u16(d_duty)
+    time.sleep(temps)
+    stop()
+
+def stop():
+    servo_gauche.duty_u16(STOP)
+    servo_droit.duty_u16(STOP)
+
+# Exemple : avance à 50% de vitesse pendant 2 secondes
+avance_vitesse(0.5, 2)</code></div>
+    </div>
+  </div>
+
+  <div class="lesson-section">
+    <h2>✏️ Exercices</h2>
+
+    <div class="exercice-card">
+      <div class="ex-num">Exercice 1</div>
+      <h3>Calibration des virages</h3>
+      <p>Trace un carré sur le sol (par exemple avec du masking tape). Calibre les durées de <code>tourne_droite()</code> et <code>tourne_gauche()</code> pour que le robot fasse exactement 90°. Note les valeurs dans ton cahier !</p>
+    </div>
+
+    <div class="exercice-card">
+      <div class="ex-num">Exercice 2</div>
+      <h3>Parcours en forme de 8</h3>
+      <p>Programme le robot pour qu'il trace un 8 : avance, tourne droite à 180°, avance, tourne gauche à 180°. Répète 3 fois pour voir si c'est précis.</p>
+    </div>
+
+    <div class="exercice-card">
+      <div class="ex-num">Exercice 3 — Défi</div>
+      <h3>Ton initiale</h3>
+      <p>Programme le robot pour qu'il trace la première lettre de ton prénom sur le sol. Tu dois calculer les angles et les distances. Prends une photo du résultat !</p>
+    </div>
+  </div>
+
+  <div class="lesson-section">
+    <div class="retenir-box">
+      <h2>🧠 À retenir</h2>
+      <ul class="retenir-list">
+        <li>Robot différentiel : deux roues indépendantes contrôlent tous les mouvements</li>
+        <li><strong>Avancer</strong> : roues dans des sens opposés (car montées face à face)</li>
+        <li><strong>Tourner</strong> : roues dans le même sens</li>
+        <li>Paramètre par défaut : <code>def avance(temps=2)</code></li>
+        <li>Toujours appeler <code>stop()</code> après un mouvement</li>
+        <li>Calibre les durées de virage expérimentalement sur ta surface réelle !</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="lesson-nav">
+    <a href="lecon-02.html">← Leçon 2 — Servomoteurs</a>
+    <a href="lecon-04.html">Leçon 4 — Parcours →</a>
+  </div>
+
+</div>
+
+<footer>
+  <p><strong class="logo-text">iSkohm</strong> Robot Club · <a href="https://iskohm.com">iskohm.com</a></p>
+</footer>
+
+<script src="../app.js"></script>
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leçon N2-01 — Introduction au Pico · iSkohm</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<div class="progress-bar"></div>
+
+<nav>
+  <a href="../index.html" class="nav-logo">
+    <svg class="circuit-svg" viewBox="0 0 28 28" fill="none">
+      <rect x="2" y="2" width="10" height="10" rx="2" stroke="#00b4d8" stroke-width="1.5"/>
+      <rect x="16" y="2" width="10" height="10" rx="2" stroke="#39d353" stroke-width="1.5"/>
+      <rect x="9" y="16" width="10" height="10" rx="2" stroke="#7c3aed" stroke-width="1.5"/>
+      <line x1="12" y1="7" x2="16" y2="7" stroke="#00b4d8" stroke-width="1.5"/>
+      <line x1="7" y1="12" x2="7" y2="19" stroke="#00b4d8" stroke-width="1.5"/>
+      <line x1="7" y1="19" x2="9" y2="19" stroke="#00b4d8" stroke-width="1.5"/>
+      <line x1="21" y1="12" x2="21" y2="19" stroke="#39d353" stroke-width="1.5"/>
+      <line x1="19" y1="19" x2="21" y2="19" stroke="#39d353" stroke-width="1.5"/>
+      <circle cx="7" cy="7" r="1.5" fill="#00b4d8"/>
+      <circle cx="21" cy="7" r="1.5" fill="#39d353"/>
+      <circle cx="14" cy="21" r="1.5" fill="#7c3aed"/>
+    </svg>
+    <span class="logo-text">iSkohm</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="../index.html">Accueil</a></li>
+    <li><a href="../niveau1.html">Niveau 1</a></li>
+    <li><a href="../niveau2.html" class="active">Niveau 2</a></li>
+    <li><a href="../competition.html">🏆 Compétition</a></li>
+  </ul>
+</nav>
+
+<div class="lesson-layout">
+
+  <div class="breadcrumb">
+    <a href="../index.html">Accueil</a>
+    <span class="sep">›</span>
+    <a href="../niveau2.html">Niveau 2</a>
+    <span class="sep">›</span>
+    <span class="current">Leçon 1 — Introduction au Pico</span>
+  </div>
+
+  <div class="lesson-header">
+    <div class="lesson-emoji">🎛️</div>
+    <h1 class="lesson-title">
+      Introduction au Raspberry Pi Pico
+      <span class="badge badge-intermediaire">Intermédiaire</span>
+    </h1>
+    <div class="niveau-badge">🟢 Niveau 2 · Raspberry Pi Pico · Leçon 1/8</div>
+  </div>
+
+  <div class="lesson-section">
+    <h2>🎯 Objectifs</h2>
+    <ul>
+      <li>Connaître les caractéristiques du Raspberry Pi Pico</li>
+      <li>Identifier les pins et leurs numéros (GP0, GP1, etc.)</li>
+      <li>Installer MicroPython sur le Pico</li>
+      <li>Écrire et exécuter ton premier programme</li>
+      <li>Faire clignoter la LED intégrée du Pico</li>
+      <li>Comprendre les différences avec la BBC micro:bit</li>
+    </ul>
+  </div>
+
+  <div class="lesson-section">
+    <h2>🛠️ Matériel nécessaire</h2>
+    <div class="material-grid">
+      <span class="material-tag">🫐 Raspberry Pi Pico</span>
+      <span class="material-tag">🔌 Câble USB micro-B</span>
+      <span class="material-tag">💻 Thonny IDE (gratuit)</span>
+    </div>
+  </div>
+
+  <div class="lesson-section">
+    <h2>📖 Cours</h2>
+
+    <h3>Le Raspberry Pi Pico, c'est quoi ?</h3>
+    <p>Le Raspberry Pi Pico est un <strong>microcontrôleur</strong> — une petite carte électronique programmable. Contrairement à la BBC micro:bit, il n'a pas d'écran ni de capteurs intégrés, mais il est beaucoup plus <strong>puissant et flexible</strong> pour contrôler des composants externes.</p>
+
+    <div class="info-box info">
+      <span class="icon">🔧</span>
+      <div>
+        <strong>Caractéristiques du Pico :</strong><br>
+        • Processeur RP2040 dual-core ARM Cortex-M0+ à 133 MHz<br>
+        • 264KB de RAM, 2MB de flash<br>
+        • 26 pins GPIO (General Purpose Input/Output)<br>
+        • PWM sur tous les pins → parfait pour les servomoteurs !<br>
+        • Prix : environ 4€
+      </div>
+    </div>
+
+    <h3>Les pins du Pico</h3>
+    <p>Le Pico a deux rangées de pins. Chaque pin a un numéro physique (1 à 40) et un nom logique (GP0 à GP28). En MicroPython, on utilise les noms logiques :</p>
+
+    <div class="code-block">
+      <div class="code-block-header">
+        <div class="code-block-lang"><div class="lang-dot"></div>Pins importants</div>
+        <button class="copy-btn">Copier</button>
+      </div>
+      <div class="code-content"><code class="python"># Pins GPIO utilisables pour les servos
+# GP15 (pin 20) — servo gauche dans notre robot
+# GP16 (pin 21) — servo droit dans notre robot
+
+# Pins d'alimentation
+# VBUS (pin 40) — 5V depuis USB
+# 3V3 (pin 36) — 3.3V
+# GND (pins 3, 8, 13, 18, 23, 28, 33, 38) — masse</code></div>
+    </div>
+
+    <h3>Installer MicroPython sur le Pico</h3>
+    <ol style="padding-left:1.5rem;color:var(--muted)">
+      <li style="margin-bottom:.5rem">Télécharge MicroPython pour Pico depuis <strong>micropython.org</strong></li>
+      <li style="margin-bottom:.5rem">Maintiens le bouton <strong>BOOTSEL</strong> enfoncé sur le Pico en branchant le câble USB</li>
+      <li style="margin-bottom:.5rem">Un disque "RPI-RP2" apparaît sur ton ordinateur</li>
+      <li style="margin-bottom:.5rem">Copie le fichier <strong>.uf2</strong> de MicroPython sur ce disque</li>
+      <li style="margin-bottom:.5rem">Le Pico redémarre automatiquement avec MicroPython installé !</li>
+    </ol>
+
+    <h3>Thonny — ton éditeur pour le Pico</h3>
+    <p>Thonny est un éditeur Python gratuit, parfait pour le Pico. Configure-le :</p>
+    <ul>
+      <li>Menu <strong>Outils → Options → Interpréteur</strong></li>
+      <li>Sélectionne <strong>MicroPython (Raspberry Pi Pico)</strong></li>
+      <li>Choisis le bon port COM/USB</li>
+    </ul>
+
+    <h3>Premier programme — LED clignotante</h3>
+    <p>La LED intégrée du Pico est sur le pin GP25. Voici comment la faire clignoter :</p>
+
+    <div class="code-block">
+      <div class="code-block-header">
+        <div class="code-block-lang"><div class="lang-dot"></div>blink.py</div>
+        <button class="copy-btn">Copier</button>
+      </div>
+      <div class="code-content"><code class="python">from machine import Pin
+import time
+
+# La LED intégrée du Pico est sur GP25
+led = Pin(25, Pin.OUT)
+
+while True:
+    led.value(1)   # allume
+    time.sleep(0.5)
+    led.value(0)   # éteint
+    time.sleep(0.5)</code></div>
+    </div>
+
+    <p>Différences par rapport à la micro:bit :</p>
+    <ul>
+      <li><code>from machine import Pin</code> au lieu de <code>from microbit import *</code></li>
+      <li><code>time.sleep(0.5)</code> — en <strong>secondes</strong> (pas en millisecondes comme <code>sleep(500)</code>)</li>
+      <li><code>Pin(25, Pin.OUT)</code> — on crée un objet Pin en précisant le numéro et la direction</li>
+    </ul>
+
+    <h3>Contrôle de LEDs externes</h3>
+
+    <div class="code-block">
+      <div class="code-block-header">
+        <div class="code-block-lang"><div class="lang-dot"></div>led_externe.py</div>
+        <button class="copy-btn">Copier</button>
+      </div>
+      <div class="code-content"><code class="python">from machine import Pin
+import time
+
+# LED connectée sur GP15 avec une résistance de 220Ω
+led = Pin(15, Pin.OUT)
+
+# Bouton connecté sur GP14
+bouton = Pin(14, Pin.IN, Pin.PULL_DOWN)
+
+while True:
+    if bouton.value() == 1:
+        led.value(1)
+    else:
+        led.value(0)</code></div>
+    </div>
+  </div>
+
+  <div class="lesson-section">
+    <h2>✏️ Exercices</h2>
+
+    <div class="exercice-card">
+      <div class="ex-num">Exercice 1</div>
+      <h3>Code Morse</h3>
+      <p>Programme la LED intégrée pour qu'elle clignote "SOS" en morse : 3 courts, 3 longs, 3 courts. Court = 0.1s allumé, Long = 0.3s allumé.</p>
+    </div>
+
+    <div class="exercice-card">
+      <div class="ex-num">Exercice 2</div>
+      <h3>Feu de circulation</h3>
+      <p>Connecte 3 LEDs (rouge sur GP13, orange sur GP14, verte sur GP15). Programme un feu de circulation : rouge 3s → orange 1s → vert 3s → orange 1s → recommence.</p>
+    </div>
+
+    <div class="exercice-card">
+      <div class="ex-num">Exercice 3</div>
+      <h3>Comparaison micro:bit vs Pico</h3>
+      <p>Écris sur papier : 3 avantages de la micro:bit, 3 avantages du Pico, et pourquoi on utilise le Pico pour notre robot Otto.</p>
+    </div>
+  </div>
+
+  <div class="lesson-section">
+    <div class="retenir-box">
+      <h2>🧠 À retenir</h2>
+      <ul class="retenir-list">
+        <li><strong>from machine import Pin, PWM</strong> — importer les modules du Pico</li>
+        <li><strong>Pin(numéro, Pin.OUT)</strong> — créer un pin en sortie</li>
+        <li><strong>pin.value(1/0)</strong> — allumer ou éteindre</li>
+        <li><strong>time.sleep(secondes)</strong> — pause en secondes (pas ms !)</li>
+        <li>La LED intégrée est sur <strong>GP25</strong></li>
+        <li>Nos servomoteurs sont sur <strong>GP15</strong> (gauche) et <strong>GP16</strong> (droit)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="lesson-nav">
+    <a href="../niveau2.html">← Niveau 2</a>
+    <a href="lecon-02.html">Leçon 2 — Servomoteurs →</a>
+  </div>
+
+</div>
+
+<footer>
+  <p><strong class="logo-text">iSkohm</strong> Robot Club · <a href="https://iskohm.com">iskohm.com</a></p>
+</footer>
+
+<script src="../app.js"></script>
+</body>
+</html>

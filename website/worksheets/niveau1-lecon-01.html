@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<title>Fiche — Niveau 1 · Leçon 1 · Lumières & Affichage</title>
+<style>
+  @media print {
+    body { margin: 0; }
+    .no-print { display: none; }
+    .page { page-break-after: always; }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Arial', sans-serif; background: #fff; color: #111; font-size: 13px; }
+  .page { width: 210mm; min-height: 297mm; margin: 0 auto; padding: 14mm 16mm 12mm; }
+
+  /* Header */
+  .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #0d1117; padding-bottom: 10px; margin-bottom: 16px; }
+  .header-logo { font-family: monospace; font-size: 22px; font-weight: 900; letter-spacing: -1px; }
+  .header-logo span { color: #00b4d8; }
+  .header-meta { text-align: right; font-size: 11px; color: #555; }
+  .level-badge { display: inline-block; background: #00b4d8; color: white; border-radius: 20px; padding: 2px 10px; font-size: 11px; font-weight: bold; }
+
+  /* Title block */
+  .lesson-title { text-align: center; margin: 14px 0 18px; }
+  .lesson-title .emoji { font-size: 36px; display: block; margin-bottom: 6px; }
+  .lesson-title h1 { font-size: 22px; font-weight: 900; }
+  .lesson-title .subtitle { color: #555; font-size: 13px; margin-top: 4px; }
+
+  /* Sections */
+  .section { margin-bottom: 16px; }
+  .section-title { font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; color: #0d1117; border-left: 4px solid #00b4d8; padding-left: 8px; margin-bottom: 8px; }
+
+  /* Objectives */
+  .objectives { background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 6px; padding: 10px 14px; }
+  .objectives li { margin: 4px 0 4px 16px; list-style: none; }
+  .objectives li::before { content: "✓ "; color: #00b4d8; font-weight: bold; }
+
+  /* Code blocks */
+  .code-box { background: #0d1117; color: #e2e8f0; font-family: monospace; font-size: 11px; border-radius: 6px; padding: 10px 14px; line-height: 1.6; margin: 6px 0; }
+  .code-box .kw { color: #00b4d8; }
+  .code-box .fn { color: #39d353; }
+  .code-box .str { color: #f59e0b; }
+  .code-box .cm { color: #6b7280; font-style: italic; }
+  .code-box .num { color: #a78bfa; }
+
+  /* Explanation */
+  .explanation { background: #fefce8; border: 1px solid #fde68a; border-radius: 6px; padding: 10px 14px; margin: 6px 0; font-size: 12px; line-height: 1.6; }
+
+  /* Exercise boxes */
+  .exercise { border: 2px solid #0d1117; border-radius: 6px; margin: 8px 0; padding: 10px 14px; }
+  .exercise-header { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .exercise-num { background: #0d1117; color: white; font-weight: bold; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0; }
+  .exercise-title { font-weight: bold; font-size: 13px; }
+  .write-lines { margin-top: 8px; }
+  .write-line { border-bottom: 1px solid #ccc; height: 20px; margin: 4px 0; }
+  .code-write-area { border: 1px solid #ccc; border-radius: 4px; background: #f8f8f8; min-height: 80px; margin-top: 6px; padding: 6px; font-family: monospace; font-size: 11px; }
+  .code-write-lines { }
+  .code-write-line { border-bottom: 1px dashed #ccc; height: 18px; font-family: monospace; }
+
+  /* Checkbox list */
+  .check-list { list-style: none; }
+  .check-list li { display: flex; align-items: flex-start; gap: 8px; margin: 5px 0; font-size: 12px; }
+  .check-box { width: 14px; height: 14px; border: 2px solid #0d1117; border-radius: 2px; flex-shrink: 0; margin-top: 1px; }
+
+  /* Key concepts */
+  .concepts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .concept-card { border: 1px solid #e5e7eb; border-radius: 6px; padding: 8px 10px; }
+  .concept-term { font-family: monospace; font-weight: bold; color: #00b4d8; font-size: 12px; }
+  .concept-def { font-size: 11px; color: #555; margin-top: 2px; }
+
+  /* Notes */
+  .notes-area { border: 1px solid #e5e7eb; border-radius: 6px; padding: 8px; min-height: 60px; }
+
+  /* Footer */
+  .footer { margin-top: auto; padding-top: 12px; border-top: 1px solid #e5e7eb; display: flex; justify-content: space-between; font-size: 10px; color: #999; }
+
+  /* Print button */
+  .print-btn { display: block; margin: 20px auto; padding: 12px 32px; background: #0d1117; color: white; border: none; border-radius: 8px; font-size: 15px; cursor: pointer; }
+  .print-btn:hover { background: #00b4d8; }
+</style>
+</head>
+<body>
+
+<div class="no-print" style="padding: 16px; text-align: center; background: #f0f9ff; border-bottom: 2px solid #00b4d8;">
+  <strong>Fiche imprimable — Niveau 1 · Leçon 1</strong>
+  <button class="print-btn" onclick="window.print()">🖨️ Imprimer</button>
+  <a href="../niveau1/lecon-01.html" style="display:block; margin-top:8px; color:#00b4d8;">← Retour à la leçon</a>
+</div>
+
+<div class="page">
+  <!-- Header -->
+  <div class="header">
+    <div class="header-logo">i<span>S</span>kohm</div>
+    <div class="header-meta">
+      <span class="level-badge">Niveau 1 · Débutant</span><br/>
+      Leçon 1 sur 8 · BBC micro:bit<br/>
+      robot.iskohm.com
+    </div>
+  </div>
+
+  <!-- Title -->
+  <div class="lesson-title">
+    <span class="emoji">💡</span>
+    <h1>Lumières & Affichage</h1>
+    <div class="subtitle">Affiche du texte, des images et des animations sur les 25 LEDs de la micro:bit</div>
+  </div>
+
+  <!-- Objectives -->
+  <div class="section">
+    <div class="section-title">🎯 Objectifs</div>
+    <div class="objectives">
+      <ul>
+        <li>Afficher du texte défilant sur les LEDs</li>
+        <li>Afficher des images et icônes prédéfinies</li>
+        <li>Créer ses propres images pixel par pixel</li>
+        <li>Animer des pixels individuellement avec set_pixel()</li>
+        <li>Utiliser la boucle <code>while True</code> pour répéter une action</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Code 1 -->
+  <div class="section">
+    <div class="section-title">📋 Code 1 — Texte et image</div>
+    <div class="code-box"><span class="kw">from</span> microbit <span class="kw">import</span> *<br/><br/><span class="kw">while</span> <span class="kw">True</span>:<br/>&nbsp;&nbsp;&nbsp;&nbsp;display.<span class="fn">show</span>(Image.HEART)<br/>&nbsp;&nbsp;&nbsp;&nbsp;<span class="fn">sleep</span>(<span class="num">1000</span>)<br/>&nbsp;&nbsp;&nbsp;&nbsp;display.<span class="fn">scroll</span>(<span class="str">'Bonjour'</span>)</div>
+    <div class="explanation">
+      <strong>display.show(Image.HEART)</strong> affiche un cœur sur les LEDs.<br/>
+      <strong>sleep(1000)</strong> attend 1000 millisecondes (= 1 seconde).<br/>
+      <strong>display.scroll('Bonjour')</strong> fait défiler le texte de droite à gauche.<br/>
+      <strong>while True:</strong> répète tout ça indéfiniment.
+    </div>
+  </div>
+
+  <!-- Code 2 -->
+  <div class="section">
+    <div class="section-title">📋 Code 2 — Créer une image personnalisée</div>
+    <div class="code-box">display.<span class="fn">show</span>(Image(<span class="str">'00300:'</span><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="str">'03630:'</span><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="str">'36963:'</span><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="str">'03630:'</span><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="str">'00300'</span>))</div>
+    <div class="explanation">
+      Chaque ligne représente une rangée de 5 LEDs. <strong>0</strong> = éteint, <strong>9</strong> = maximum.
+      Les chiffres 1–8 donnent des niveaux de luminosité intermédiaires.
+    </div>
+  </div>
+
+  <!-- Grille vide pour dessiner -->
+  <div class="section">
+    <div class="section-title">✏️ Dessine ton image ici (0 = éteint, 9 = allumé)</div>
+    <div style="display: flex; gap: 24px; align-items: flex-start;">
+      <table style="border-collapse: collapse;">
+        <tr><th style="font-size:10px; color:#999; padding: 2px 6px;"></th><th style="font-size:10px; color:#999; padding: 2px 6px;">0</th><th style="font-size:10px; color:#999; padding: 2px 6px;">1</th><th style="font-size:10px; color:#999; padding: 2px 6px;">2</th><th style="font-size:10px; color:#999; padding: 2px 6px;">3</th><th style="font-size:10px; color:#999; padding: 2px 6px;">4</th></tr>
+        <tr><td style="font-size:10px; color:#999; padding-right:4px;">0</td><td style="width:22px;height:22px;border:1px solid #ccc;"></td><td style="width:22px;height:22px;border:1px solid #ccc;"></td><td style="width:22px;height:22px;border:1px solid #ccc;"></td><td style="width:22px;height:22px;border:1px solid #ccc;"></td><td style="width:22px;height:22px;border:1px solid #ccc;"></td></tr>
+        <tr><td style="font-size:10px; color:#999; padding-right:4px;">1</td><td style="width:22px;height:22px;border:1px solid #ccc;"></td><td style="width:22px;height:22px;border:1px solid #ccc;"></td><td style="width:22px;height:22px;border:1px solid #ccc;"></td><td style="width:22px;height:22px;border:1px solid #ccc;"></td><td style="width:22px;height:22px;border:1px solid #ccc;"></td></tr>
+        <tr><td style="font-size:10px; color:#999; padding-right:4px;">2</td><td style="width:22px;height:22px;border:1px solid #ccc;"></td><td style="width:22px;height:22px;border:1px solid #ccc;"></td><td style="width:22px;height:22px;border:1px solid #ccc;"></td><td style="width:22px;height:22px;border:1px solid #ccc;"></td><td style="width:22px;height:22px;border:1px solid #ccc;"></td></tr>
+        <tr><td style="font-size:10px; color:#999; padding-right:4px;">3</td><td style="width:22px;height:22px;border:1px solid #ccc;"></td><td style="width:22px;height:22px;border:1px solid #ccc;"></td><td style="width:22px;height:22px;border:1px solid #ccc;"></td><td style="width:22px;height:22px;border:1px solid #ccc;"></td><td style="width:22px;height:22px;border:1px solid #ccc;"></td></tr>
+        <tr><td style="font-size:10px; color:#999; padding-right:4px;">4</td><td style="width:22px;height:22px;border:1px solid #ccc;"></td><td style="width:22px;height:22px;border:1px solid #ccc;"></td><td style="width:22px;height:22px;border:1px solid #ccc;"></td><td style="width:22px;height:22px;border:1px solid #ccc;"></td><td style="width:22px;height:22px;border:1px solid #ccc;"></td></tr>
+      </table>
+      <div style="flex:1;">
+        <div style="font-size:12px; margin-bottom:6px; font-weight:bold;">Traduis en code :</div>
+        <div class="code-write-area">
+          <div class="code-write-line"></div>
+          <div class="code-write-line"></div>
+          <div class="code-write-line"></div>
+          <div class="code-write-line"></div>
+          <div class="code-write-line"></div>
+          <div class="code-write-line"></div>
+          <div class="code-write-line"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Exercises -->
+  <div class="section">
+    <div class="section-title">🧪 Exercices</div>
+
+    <div class="exercise">
+      <div class="exercise-header">
+        <div class="exercise-num">1</div>
+        <div class="exercise-title">Affiche ton prénom en défilant, puis une image de ton choix</div>
+      </div>
+      <ul class="check-list">
+        <li><div class="check-box"></div> J'ai utilisé <code>display.scroll()</code> avec mon prénom</li>
+        <li><div class="check-box"></div> J'ai choisi une image parmi : HEART, HAPPY, SMILE, DUCK, UMBRELLA...</li>
+        <li><div class="check-box"></div> Mon code tourne en boucle avec <code>while True</code></li>
+      </ul>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-header">
+        <div class="exercise-num">2</div>
+        <div class="exercise-title">Crée une animation avec set_pixel() — allume les pixels un par un</div>
+      </div>
+      <ul class="check-list">
+        <li><div class="check-box"></div> J'ai utilisé <code>display.set_pixel(x, y, luminosité)</code></li>
+        <li><div class="check-box"></div> J'ai ajouté des <code>sleep()</code> entre chaque pixel</li>
+        <li><div class="check-box"></div> J'ai effacé l'écran avec <code>display.clear()</code> à la fin</li>
+      </ul>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-header">
+        <div class="exercise-num">3</div>
+        <div class="exercise-title">⭐ Défi — Crée une animation de compte à rebours : 5, 4, 3, 2, 1... 🚀</div>
+      </div>
+      <ul class="check-list">
+        <li><div class="check-box"></div> Chaque chiffre s'affiche pendant 1 seconde</li>
+        <li><div class="check-box"></div> À la fin, une fusée ou une explosion s'affiche !</li>
+        <li><div class="check-box"></div> Bonus : le chiffre final clignote 3 fois</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Key Concepts -->
+  <div class="section">
+    <div class="section-title">🧠 À retenir</div>
+    <div class="concepts">
+      <div class="concept-card">
+        <div class="concept-term">display.scroll('texte')</div>
+        <div class="concept-def">Fait défiler du texte sur les LEDs</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-term">display.show(Image.XXX)</div>
+        <div class="concept-def">Affiche une image prédéfinie</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-term">display.set_pixel(x, y, v)</div>
+        <div class="concept-def">Allume un pixel précis (v = 0 à 9)</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-term">sleep(ms)</div>
+        <div class="concept-def">Attend X millisecondes</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-term">while True:</div>
+        <div class="concept-def">Répète le bloc indéfiniment</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-term">display.clear()</div>
+        <div class="concept-def">Éteint toutes les LEDs</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notes -->
+  <div class="section">
+    <div class="section-title">📝 Mes notes</div>
+    <div class="notes-area">
+      <div class="write-line"></div>
+      <div class="write-line"></div>
+      <div class="write-line"></div>
+      <div class="write-line"></div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <span>iSkohm Robot Club · Sidi Kaouki</span>
+    <span>robot.iskohm.com</span>
+    <span>Niveau 1 · Leçon 1 · Lumières & Affichage</span>
+  </div>
+</div>
+
+</body>
+</html>

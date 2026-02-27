@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fiche — Template · iSkohm Robot Club</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    body { background: white; }
+    @media screen {
+      .ws-page {
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        margin: 2rem auto;
+        border-radius: 8px;
+      }
+      .print-btn {
+        display: block;
+        text-align: center;
+        margin: 1rem auto;
+        max-width: 210mm;
+        padding: 0.5rem;
+      }
+    }
+    @media print {
+      .print-btn { display: none; }
+      body { margin: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="print-btn no-print">
+  <button onclick="window.print()" style="background:#0d1117;color:white;border:none;padding:.6rem 1.5rem;border-radius:6px;cursor:pointer;font-size:.9rem">🖨️ Imprimer / Enregistrer en PDF</button>
+  <a href="../index.html" style="margin-left:1rem;font-size:.85rem;color:#00b4d8">← Retour au site</a>
+</div>
+
+<div class="ws-page">
+
+  <!-- HEADER -->
+  <div class="ws-header">
+    <div>
+      <div class="ws-logo">iSkohm</div>
+      <div style="font-size:.7rem;color:#555">robot.iskohm.com</div>
+    </div>
+    <div class="ws-meta">
+      <div style="font-weight:700;font-size:.9rem">[TITRE DE LA LEÇON]</div>
+      <div>Niveau X · Leçon Y</div>
+      <div style="margin-top:.3rem">Nom : ___________________________</div>
+      <div>Date : ___________________________</div>
+    </div>
+  </div>
+
+  <!-- TITLE -->
+  <h1 class="ws-title">[Titre de la leçon]</h1>
+  <div style="margin-bottom:1.5rem">
+    <span style="background:#e0f2fe;color:#0369a1;padding:.2rem .6rem;border-radius:4px;font-size:.75rem;font-weight:700">Niveau X</span>
+    <span style="background:#f0fdf4;color:#15803d;padding:.2rem .6rem;border-radius:4px;font-size:.75rem;font-weight:700;margin-left:.5rem">Débutant / Intermédiaire / Avancé</span>
+  </div>
+
+  <!-- OBJECTIFS -->
+  <div class="ws-section">
+    <div class="ws-section-title">🎯 Objectifs</div>
+    <div class="ws-objectives">
+      <ul>
+        <li>Objectif 1</li>
+        <li>Objectif 2</li>
+        <li>Objectif 3</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- MATÉRIEL -->
+  <div class="ws-section">
+    <div class="ws-section-title">🛠️ Matériel</div>
+    <p style="font-size:.875rem;color:#555">☐ BBC micro:bit v2 &nbsp;&nbsp; ☐ Câble USB &nbsp;&nbsp; ☐ Autre : ____________</p>
+  </div>
+
+  <!-- CODE -->
+  <div class="ws-section">
+    <div class="ws-section-title">💻 Mon Code</div>
+    <div class="code-lines">
+      <div class="code-line"><div class="code-line-num">1</div><div style="flex:1"></div></div>
+      <div class="code-line"><div class="code-line-num">2</div><div style="flex:1"></div></div>
+      <div class="code-line"><div class="code-line-num">3</div><div style="flex:1"></div></div>
+      <div class="code-line"><div class="code-line-num">4</div><div style="flex:1"></div></div>
+      <div class="code-line"><div class="code-line-num">5</div><div style="flex:1"></div></div>
+      <div class="code-line"><div class="code-line-num">6</div><div style="flex:1"></div></div>
+      <div class="code-line"><div class="code-line-num">7</div><div style="flex:1"></div></div>
+      <div class="code-line"><div class="code-line-num">8</div><div style="flex:1"></div></div>
+      <div class="code-line"><div class="code-line-num">9</div><div style="flex:1"></div></div>
+      <div class="code-line"><div class="code-line-num">10</div><div style="flex:1"></div></div>
+      <div class="code-line"><div class="code-line-num">11</div><div style="flex:1"></div></div>
+      <div class="code-line"><div class="code-line-num">12</div><div style="flex:1"></div></div>
+    </div>
+  </div>
+
+  <!-- EXERCICES -->
+  <div class="ws-section">
+    <div class="ws-section-title">✏️ Exercices</div>
+
+    <div class="ws-exercise">
+      <div class="ex-title">
+        <input type="checkbox"> Exercice 1 — [Titre]
+      </div>
+      <p>[Description de l'exercice]</p>
+    </div>
+
+    <div class="ws-exercise">
+      <div class="ex-title">
+        <input type="checkbox"> Exercice 2 — [Titre]
+      </div>
+      <p>[Description de l'exercice]</p>
+    </div>
+
+    <div class="ws-exercise">
+      <div class="ex-title">
+        <input type="checkbox"> Exercice 3 — Défi ! [Titre]
+      </div>
+      <p>[Description du défi]</p>
+    </div>
+  </div>
+
+  <!-- NOTES -->
+  <div class="ws-section">
+    <div class="ws-section-title">📝 Notes & Observations</div>
+    <div class="notes-lines">
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+      <div class="note-line"></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="ws-footer">
+    iSkohm Robot Club · Sidi Kaouki, Maroc · robot.iskohm.com
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leçon 2 — Boutons & Interactions · iSkohm</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<div class="progress-bar"></div>
+
+<nav>
+  <a href="../index.html" class="nav-logo">
+    <svg class="circuit-svg" viewBox="0 0 28 28" fill="none">
+      <rect x="2" y="2" width="10" height="10" rx="2" stroke="#00b4d8" stroke-width="1.5"/>
+      <rect x="16" y="2" width="10" height="10" rx="2" stroke="#39d353" stroke-width="1.5"/>
+      <rect x="9" y="16" width="10" height="10" rx="2" stroke="#7c3aed" stroke-width="1.5"/>
+      <line x1="12" y1="7" x2="16" y2="7" stroke="#00b4d8" stroke-width="1.5"/>
+      <line x1="7" y1="12" x2="7" y2="19" stroke="#00b4d8" stroke-width="1.5"/>
+      <line x1="7" y1="19" x2="9" y2="19" stroke="#00b4d8" stroke-width="1.5"/>
+      <line x1="21" y1="12" x2="21" y2="19" stroke="#39d353" stroke-width="1.5"/>
+      <line x1="19" y1="19" x2="21" y2="19" stroke="#39d353" stroke-width="1.5"/>
+      <circle cx="7" cy="7" r="1.5" fill="#00b4d8"/>
+      <circle cx="21" cy="7" r="1.5" fill="#39d353"/>
+      <circle cx="14" cy="21" r="1.5" fill="#7c3aed"/>
+    </svg>
+    <span class="logo-text">iSkohm</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="../index.html">Accueil</a></li>
+    <li><a href="../niveau1.html" class="active">Niveau 1</a></li>
+    <li><a href="../niveau2.html">Niveau 2</a></li>
+    <li><a href="../competition.html">🏆 Compétition</a></li>
+  </ul>
+</nav>
+
+<div class="lesson-layout">
+
+  <div class="breadcrumb">
+    <a href="../index.html">Accueil</a>
+    <span class="sep">›</span>
+    <a href="../niveau1.html">Niveau 1</a>
+    <span class="sep">›</span>
+    <span class="current">Leçon 2 — Boutons & Interactions</span>
+  </div>
+
+  <div class="lesson-header">
+    <div class="lesson-emoji">🔘</div>
+    <h1 class="lesson-title">
+      Boutons & Interactions
+      <span class="badge badge-debutant">Débutant</span>
+    </h1>
+    <div class="niveau-badge">🔵 Niveau 1 · BBC micro:bit · Leçon 2/8</div>
+  </div>
+
+  <div class="lesson-section">
+    <h2>🎯 Objectifs</h2>
+    <ul>
+      <li>Utiliser les boutons A et B pour déclencher des actions</li>
+      <li>Comprendre la différence entre <code>is_pressed()</code> et <code>was_pressed()</code></li>
+      <li>Combiner plusieurs boutons avec les opérateurs <code>and</code> / <code>elif</code></li>
+      <li>Utiliser le logo tactile de la micro:bit v2</li>
+      <li>Jouer des sons avec <code>audio.play(Sound.NOM)</code></li>
+    </ul>
+  </div>
+
+  <div class="lesson-section">
+    <h2>🛠️ Matériel nécessaire</h2>
+    <div class="material-grid">
+      <span class="material-tag">🔲 BBC micro:bit v2</span>
+      <span class="material-tag">🔌 Câble USB</span>
+      <span class="material-tag">🔊 Haut-parleur intégré (micro:bit v2)</span>
+    </div>
+  </div>
+
+  <div class="lesson-section">
+    <h2>📖 Cours</h2>
+
+    <h3>Les boutons de la micro:bit</h3>
+    <p>Ta micro:bit possède <strong>3 entrées interactives</strong> :</p>
+    <ul>
+      <li><strong>Bouton A</strong> — bouton gauche, accès via <code>button_a</code></li>
+      <li><strong>Bouton B</strong> — bouton droit, accès via <code>button_b</code></li>
+      <li><strong>Logo tactile</strong> — le logo doré en haut (micro:bit v2 seulement), accès via <code>pin_logo</code></li>
+    </ul>
+
+    <h3>Exemple 1 — Interrupteur simple</h3>
+    <p>Quand on appuie sur A, on allume une LED. Quand on appuie sur B, on éteint tout :</p>
+
+    <div class="code-block">
+      <div class="code-block-header">
+        <div class="code-block-lang"><div class="lang-dot"></div>1.interrupteur.py</div>
+        <button class="copy-btn">Copier</button>
+      </div>
+      <div class="code-content"><code class="python">from microbit import *
+
+while True:
+    if button_a.is_pressed():
+        display.set_pixel(2, 2, 9)
+    if button_b.is_pressed():
+        display.clear()</code></div>
+    </div>
+
+    <p>La fonction <code>is_pressed()</code> retourne <code>True</code> (vrai) si le bouton est enfoncé au moment où on vérifie, et <code>False</code> (faux) sinon.</p>
+
+    <h3>Exemple 2 — Images, sons et logo tactile</h3>
+    <p>Ce programme est plus évolué : il gère 3 boutons avec <code>elif</code> (sinon si) pour que les actions soient exclusives :</p>
+
+    <div class="code-block">
+      <div class="code-block-header">
+        <div class="code-block-lang"><div class="lang-dot"></div>2.image_son.py</div>
+        <button class="copy-btn">Copier</button>
+      </div>
+      <div class="code-content"><code class="python">from microbit import *
+
+while True:
+    if button_a.is_pressed() and button_b.is_pressed():
+        display.clear()
+        sleep(1000)
+    elif button_a.is_pressed():
+        display.show(Image.HAPPY)
+    elif button_b.is_pressed():
+        display.show(Image.CONFUSED)
+
+    if pin_logo.is_touched():
+        audio.play(Sound.GIGGLE)</code></div>
+    </div>
+
+    <p>Points importants :</p>
+    <ul>
+      <li><strong><code>and</code></strong> — les deux conditions doivent être vraies en même temps</li>
+      <li><strong><code>elif</code></strong> — "sinon si" : testé seulement si le <code>if</code> précédent était faux</li>
+      <li><strong><code>pin_logo.is_touched()</code></strong> — détecte le toucher du logo doré</li>
+      <li><strong><code>audio.play(Sound.GIGGLE)</code></strong> — joue un son prédéfini</li>
+    </ul>
+
+    <div class="info-box tip">
+      <span class="icon">🎵</span>
+      <div>Sons disponibles : <code>Sound.GIGGLE</code>, <code>Sound.HAPPY</code>, <code>Sound.SAD</code>, <code>Sound.MYSTERIOUS</code>, <code>Sound.SPRING</code>, <code>Sound.TWINKLE</code>, <code>Sound.YAWN</code>...</div>
+    </div>
+
+    <h3>La structure if / elif / else</h3>
+    <div class="code-block">
+      <div class="code-block-header">
+        <div class="code-block-lang"><div class="lang-dot"></div>Structure logique</div>
+        <button class="copy-btn">Copier</button>
+      </div>
+      <div class="code-content"><code class="python"># Structure complète
+if condition1:
+    # si condition1 est vraie
+    action1()
+elif condition2:
+    # si condition1 est fausse ET condition2 est vraie
+    action2()
+else:
+    # si toutes les conditions sont fausses
+    action3()</code></div>
+    </div>
+  </div>
+
+  <div class="lesson-section">
+    <h2>✏️ Exercices</h2>
+
+    <div class="exercice-card">
+      <div class="ex-num">Exercice 1</div>
+      <h3>Lampe de poche</h3>
+      <p>Programme la micro:bit pour qu'elle affiche une image de soleil (toutes les LEDs allumées à 9) quand on appuie sur A, et qu'elle s'éteigne complètement quand on appuie sur B. Comme une lampe de poche !</p>
+    </div>
+
+    <div class="exercice-card">
+      <div class="ex-num">Exercice 2</div>
+      <h3>Machine à humeurs</h3>
+      <p>Crée un programme avec 4 états différents : bouton A seul → <code>Image.HAPPY</code>, bouton B seul → <code>Image.SAD</code>, A+B ensemble → <code>Image.SURPRISED</code>, logo tactile → joue un son. Utilise elif pour chaque cas.</p>
+    </div>
+
+    <div class="exercice-card">
+      <div class="ex-num">Exercice 3 — Défi</div>
+      <h3>Compteur de points</h3>
+      <p>Crée un compteur : A augmente le score (+1), B diminue le score (-1). Affiche le score après chaque appui. Bonus : fais jouer un son spécial quand le score atteint 5 !</p>
+    </div>
+  </div>
+
+  <div class="lesson-section">
+    <div class="retenir-box">
+      <h2>🧠 À retenir</h2>
+      <ul class="retenir-list">
+        <li><strong>button_a.is_pressed()</strong> — vrai si le bouton A est enfoncé</li>
+        <li><strong>button_b.is_pressed()</strong> — vrai si le bouton B est enfoncé</li>
+        <li><strong>pin_logo.is_touched()</strong> — vrai si on touche le logo doré</li>
+        <li><strong>audio.play(Sound.NOM)</strong> — joue un son intégré</li>
+        <li><strong>if / elif / else</strong> — structure de décision, une seule branche s'exécute</li>
+        <li><strong>and</strong> — les deux conditions doivent être vraies</li>
+        <li><strong>or</strong> — au moins une condition doit être vraie</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="lesson-nav">
+    <a href="lecon-01.html">← Leçon 1 — Lumières</a>
+    <a href="lecon-03.html">Leçon 3 — Accéléromètre →</a>
+  </div>
+
+</div>
+
+<footer>
+  <p><strong class="logo-text">iSkohm</strong> Robot Club · <a href="https://iskohm.com">iskohm.com</a></p>
+</footer>
+
+<script src="../app.js"></script>
+</body>
+</html>
