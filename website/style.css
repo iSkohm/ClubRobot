@@ -912,8 +912,8 @@ footer a { color: var(--blue); }
 
 /* Camel logo sizes */
 .camel-logo {
-  width: 52px;
-  height: 52px;
+  width: 47px;
+  height: 47px;
   object-fit: contain;
   border-radius: 6px;
 }
