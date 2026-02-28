@@ -941,3 +941,11 @@ footer a { color: var(--blue); }
   font-size: clamp(2.2rem, 6vw, 3.5rem);
   font-weight: 900;
 }
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 12px;
+}
