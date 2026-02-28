@@ -933,6 +933,6 @@ footer a { color: var(--blue); }
 }
 
 .hero-logo-text {
-  font-size: 2rem;
+  font-size: clamp(2.2rem, 6vw, 3.5rem);
   font-weight: 900;
 }
