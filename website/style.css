@@ -919,8 +919,8 @@ footer a { color: var(--blue); }
 }
 
 .camel-logo-hero {
-  width: 280px;
-  height: 280px;
+  width: 380px;
+  height: 380px;
   object-fit: contain;
   margin-bottom: 16px;
   filter: drop-shadow(0 0 20px rgba(0,180,216,0.4));
