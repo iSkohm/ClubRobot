@@ -3,7 +3,7 @@ import time
 
 
 
-class PongShoo:
+class Canon:
     
     STOP    = 4915
     CW_MAX  = 3276
